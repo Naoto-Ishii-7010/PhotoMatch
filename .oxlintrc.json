@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "nextjs", "react", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    // Next.js / React 19 で無効にすべきルール
+    "import/no-unassigned-import": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-default-export": "off",
+    "import/no-relative-parent-imports": "off",
+    "react/only-export-components": "off"
+  },
+  "env": {
+    "builtin": true
+  }
+}
