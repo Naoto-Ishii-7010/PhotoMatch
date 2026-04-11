@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/s31653/.claude/**)",
+      "Bash(npm view:*)",
+      "Bash(npm search:*)",
+      "Bash(curl -s https://registry.npmjs.org/figma-mcp)",
+      "Bash(npx @playwright/mcp@latest --version)",
+      "Bash(npx chrome-devtools-mcp@latest --version)",
+      "Bash(ls ~/.claude/mcp*)",
+      "Bash(claude --version)",
+      "Bash(npx claude:*)",
+      "Bash(npm info:*)"
+    ]
+  },
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["figma-mcp@latest"],
+      "env": {
+        "FIGMA_API_KEY": "YOUR_FIGMA_API_KEY_HERE"
+      }
+    }
+  }
+}
