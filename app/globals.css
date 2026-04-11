@@ -3,6 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* LP専用カラー変数 */
+  --lp-cream: #f8f5ef;
+  --lp-gold: #c9a96e;
+  --lp-gold-light: #e8d5b0;
+  --lp-green: #7fb5a0;
+  --lp-dark: #2c2c2c;
+  --lp-gray: #6b6b6b;
 }
 
 @theme inline {
@@ -10,6 +18,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* LP用カラーをTailwindテーマに登録 */
+  --color-lp-cream: var(--lp-cream);
+  --color-lp-gold: var(--lp-gold);
+  --color-lp-gold-light: var(--lp-gold-light);
+  --color-lp-green: var(--lp-green);
+  --color-lp-dark: var(--lp-dark);
+  --color-lp-gray: var(--lp-gray);
 }
 
 @media (prefers-color-scheme: dark) {
