@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENT.md
 
 ## プロジェクト概要
 
@@ -114,7 +114,3 @@ pnpm dev      # 開発サーバーを起動
 pnpm build    # 本番用ビルド
 pnpm lint     # Oxlint を実行
 ```
-
-## カスタムスキル
-
-プロジェクト固有のスキルは `.claude/skills/` にあります。使い方は各ファイルを参照してください。
