@@ -18,9 +18,8 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    // CLAUDE.md の規約: @/ エイリアスは使用しない（相対パスに統一）
+    "paths": {}
   },
   "include": [
     "next-env.d.ts",
