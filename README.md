@@ -1,31 +1,65 @@
-これは [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) でブートストラップされた [Next.js](https://nextjs.org) プロジェクトです。
+# PhotoMatch
 
-## はじめに
+写真撮影の依頼者とフォトグラファーをつなぐマッチングサービスの開発リポジトリです。
 
-まず、開発サーバーを起動します：
+現在の実装は主に `/lp` のランディングページと、Auth.js / Prisma / PostgreSQL を前提にした開発基盤です。
+
+## セットアップ
+
+```bash
+pnpm install
+```
+
+ルートに `.env` を作成し、以下を設定してください。
+
+```bash
+AUTH_SECRET=
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
+DATABASE_URL=
+BLOB_READ_WRITE_TOKEN=
+
+# optional
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+```
+
+Prisma Client を生成します。
+
+```bash
+pnpm db:generate
+```
+
+開発サーバーを起動します。
 
 ```bash
 pnpm dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いて結果を確認してください。
+## 開発時の確認先
 
-`app/page.tsx` を編集することでページの編集を開始できます。ファイルを編集すると、ページは自動的に更新されます。
+- `http://localhost:3000/` : 現在は Next.js 初期ページ
+- `http://localhost:3000/lp` : 実装済みの LP
 
-このプロジェクトは [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) を使用して、Vercel の新しいフォントファミリーである [Geist](https://vercel.com/font) を自動的に最適化・読み込みします。
+## よく使うコマンド
 
-## さらに詳しく
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm format
+pnpm test
+pnpm test:e2e
+pnpm db:generate
+pnpm db:migrate
+pnpm db:push
+pnpm db:studio
+```
 
-Next.js についてさらに詳しく知るには、以下のリソースをご覧ください：
+## メモ
 
-- [Next.js ドキュメント](https://nextjs.org/docs) - Next.js の機能と API について学ぶ
-- [Next.js を学ぶ](https://nextjs.org/learn) - インタラクティブな Next.js チュートリアル
-
-[Next.js GitHub リポジトリ](https://github.com/vercel/next.js) もご覧ください。フィードバックや貢献を歓迎しています！
-
-## Vercel へのデプロイ
-
-Next.js アプリをデプロイする最も簡単な方法は、Next.js の開発者が提供する [Vercel プラットフォーム](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) を使用することです。
-
-詳細については [Next.js デプロイドキュメント](https://nextjs.org/docs/app/building-your-application/deploying) をご確認ください。
-# PhotoMatch
+- 環境変数は `lib/env.ts` で検証しています
+- Prisma Client は `app/generated/prisma` に生成されます
+- Prisma 利用時は `lib/prisma.ts` のシングルトンを使います
+- 詳細要件は `docs/SPEC.md` を参照してください
