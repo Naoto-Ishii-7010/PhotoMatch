@@ -1,0 +1,14 @@
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["chrome-devtools-mcp@latest"]
+
+[mcp_servers.figma]
+command = "npx"
+args = ["figma-mcp@latest"]
+
+[mcp_servers.figma.env]
+FIGMA_API_KEY = "YOUR_FIGMA_API_KEY_HERE"
