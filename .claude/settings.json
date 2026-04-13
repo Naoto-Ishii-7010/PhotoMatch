@@ -12,22 +12,5 @@
       "Bash(npx claude:*)",
       "Bash(npm info:*)"
     ]
-  },
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
-    },
-    "figma": {
-      "command": "npx",
-      "args": ["figma-mcp@latest"],
-      "env": {
-        "FIGMA_API_KEY": "YOUR_FIGMA_API_KEY_HERE"
-      }
-    }
   }
 }
