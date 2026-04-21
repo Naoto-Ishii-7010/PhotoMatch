@@ -39,10 +39,15 @@ export function ThemeProvider({
   const [mounted, setMounted] = useState(false);
 
   // 初回マウント時に localStorage から設定を読み込む
+  // Safari プライベートモード等で localStorage が使えない場合はデフォルトのまま
   useEffect(() => {
-    const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-    if (stored && ["light", "dark", "system"].includes(stored)) {
-      setThemeState(stored);
+    try {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+      if (stored && ["light", "dark", "system"].includes(stored)) {
+        setThemeState(stored);
+      }
+    } catch {
+      // localStorage へのアクセスが拒否された場合は無視してデフォルトを使う
     }
     setMounted(true);
   }, []);
@@ -77,7 +82,11 @@ export function ThemeProvider({
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    } catch {
+      // localStorage への書き込みが拒否された場合は無視
+    }
   };
 
   // ハイドレーションミスマッチを防ぐため、マウント前は何も表示しない

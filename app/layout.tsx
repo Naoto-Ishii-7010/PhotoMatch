@@ -30,6 +30,18 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        {/*
+         * FOUC（テーマフラッシュ）防止スクリプト
+         * hydration前にlocalStorageからテーマを読み込み、html要素にクラスを付与する
+         * dangerouslySetInnerHTMLを使用する理由: Next.jsのhtmlエスケープを回避してインラインスクリプトを実行するため
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('photomatch-theme');if(t==='dark'){document.documentElement.classList.add('dark')}else if(t==='light'){document.documentElement.classList.add('light')}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
       </body>
