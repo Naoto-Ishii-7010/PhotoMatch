@@ -5,7 +5,7 @@
  */
 export default function ServiceOverviewSection() {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-card-bg py-20 lg:py-28 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* セクションヘッダー */}
         <div className="text-center mb-16">

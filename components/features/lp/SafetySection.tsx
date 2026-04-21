@@ -13,7 +13,7 @@ type SafetyItemProps = {
 /** 安全機能アイテムコンポーネント */
 function SafetyItem({ iconPath, title, description }: SafetyItemProps) {
   return (
-    <div className="flex flex-col items-center text-center p-8 bg-white rounded-3xl border border-lp-green/20 hover:border-lp-green/50 hover:shadow-md transition-all">
+    <div className="flex flex-col items-center text-center p-8 bg-muted rounded-3xl border border-lp-green/20 hover:border-lp-green/50 hover:shadow-md transition-all">
       {/* アイコン */}
       <div className="w-16 h-16 rounded-full bg-lp-green/10 flex items-center justify-center mb-6">
         <svg
@@ -39,7 +39,10 @@ function SafetyItem({ iconPath, title, description }: SafetyItemProps) {
 
 export default function SafetySection() {
   return (
-    <section id="safety" className="bg-white py-20 lg:py-28">
+    <section
+      id="safety"
+      className="bg-card-bg py-20 lg:py-28 transition-colors"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* セクションヘッダー */}
         <div className="text-center mb-16">

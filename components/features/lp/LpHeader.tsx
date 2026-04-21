@@ -1,13 +1,15 @@
 import Link from "next/link";
+import { ThemeToggle } from "../../ui/ThemeToggle";
 
 /**
  * LPヘッダー
  * - ロゴ（テキスト）と新規登録・ログインCTAボタンを配置
  * - スクロール後も常に上部固定（sticky）
+ * - ダークモード切り替えボタンを配置
  */
 export default function LpHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-lp-cream/95 backdrop-blur-sm border-b border-lp-gold-light">
+    <header className="sticky top-0 z-50 w-full bg-lp-cream/95 backdrop-blur-sm border-b border-lp-gold-light transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* ロゴ */}
         <Link href="/lp" className="flex items-center gap-2">
@@ -38,6 +40,8 @@ export default function LpHeader() {
 
         {/* CTA */}
         <div className="flex items-center gap-3">
+          {/* テーマ切り替えボタン */}
+          <ThemeToggle />
           <Link
             href="/auth/login"
             className="text-sm text-lp-dark hover:text-lp-gold transition-colors hidden sm:block"

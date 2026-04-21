@@ -14,9 +14,9 @@ type FeatureCardProps = {
 /** 機能カードコンポーネント */
 function FeatureCard({ icon, title, description, badge }: FeatureCardProps) {
   return (
-    <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-lp-gold/40 hover:shadow-md transition-all group">
+    <div className="bg-card-bg rounded-2xl p-6 border border-card-border hover:border-lp-gold/40 hover:shadow-md transition-all group">
       {/* アイコンエリア */}
-      <div className="w-12 h-12 rounded-xl bg-lp-cream flex items-center justify-center mb-4 group-hover:bg-lp-gold/10 transition-colors">
+      <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4 group-hover:bg-lp-gold/10 transition-colors">
         {icon}
       </div>
 

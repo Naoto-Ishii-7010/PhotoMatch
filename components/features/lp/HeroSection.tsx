@@ -58,7 +58,7 @@ export default function HeroSection() {
                 {/* 画面 */}
                 <div className="w-full h-full bg-lp-cream rounded-[2.5rem] overflow-hidden flex flex-col">
                   {/* ステータスバー */}
-                  <div className="h-8 bg-white/20 flex items-center justify-between px-6 pt-2">
+                  <div className="h-8 bg-card-bg/20 flex items-center justify-between px-6 pt-2">
                     <span className="text-[10px] text-lp-dark font-medium">
                       9:41
                     </span>
@@ -72,7 +72,7 @@ export default function HeroSection() {
                   {/* モックアップコンテンツ: ホーム画面風 */}
                   <div className="flex-1 p-4 flex flex-col gap-3">
                     {/* 検索バー */}
-                    <div className="bg-white rounded-xl px-3 py-2 flex items-center gap-2 shadow-sm">
+                    <div className="bg-card-bg rounded-xl px-3 py-2 flex items-center gap-2 shadow-sm">
                       <svg
                         className="w-4 h-4 text-lp-gray"
                         fill="none"
@@ -103,7 +103,7 @@ export default function HeroSection() {
                       ].map((cat) => (
                         <div
                           key={cat}
-                          className="bg-white rounded-lg p-2 flex flex-col items-center gap-1 shadow-sm"
+                          className="bg-card-bg rounded-lg p-2 flex flex-col items-center gap-1 shadow-sm"
                         >
                           <div className="w-8 h-8 rounded-full bg-lp-gold/20 flex items-center justify-center">
                             <div className="w-4 h-4 rounded-full bg-lp-gold/60" />
@@ -132,7 +132,7 @@ export default function HeroSection() {
                   </div>
 
                   {/* ボトムナビ */}
-                  <div className="h-12 bg-white border-t border-gray-100 flex items-center justify-around px-4">
+                  <div className="h-12 bg-card-bg border-t border-card-border flex items-center justify-around px-4">
                     {[
                       {
                         icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
