@@ -26,7 +26,7 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 | **Payment_Service** | 決済・エスクロー・売上管理を担うモジュール |
 | **Notification_Service** | 通知配信を担うモジュール |
 | **Review_Service** | レビュー・評価を担うモジュール |
-| **Photo_Store** | 写真販売・購入を担うモジュール |
+| **Photo_Store_Service** | 写真販売・購入を担うモジュール |
 | **Admin_Service** | 運営管理を担うモジュール |
 | **依頼者** | 撮影を依頼するユーザー |
 | **フォトグラファー** | 撮影を提供するユーザー |
@@ -59,7 +59,7 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 | 要件 | 機能 | 仕様書 | 担当サービス |
 |------|------|--------|-------------|
 | 要件15 | レビュー投稿 | [review/SPEC.md](./spec/phase2/review/SPEC.md) | Review_Service |
-| 要件16, 17, 18 | 写真販売・購入・ウォーターマーク | [photo-store/SPEC.md](./spec/phase2/photo-store/SPEC.md) | Photo_Store |
+| 要件16, 17, 18 | 写真販売・購入・ウォーターマーク | [photo-store/SPEC.md](./spec/phase2/photo-store/SPEC.md) | Photo_Store_Service |
 
 ### **Phase 3 (運営強化・拡張)**
 
@@ -95,8 +95,8 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 
 ### **レビュー・販売系**
 - **Review_Service** → **Booking_Service**, **Delivery_Service**: 受領完了後のレビュー投稿
-- **Photo_Store** → **Payment_Service**: 写真購入時の決済処理
-- **Photo_Store** → **Delivery_Service**: 購入作品のダウンロードURL発行
+- **Photo_Store_Service** → **Payment_Service**: 写真購入時の決済処理
+- **Photo_Store_Service** → **Delivery_Service**: 購入作品のダウンロードURL発行
 
 ### **運営管理系**
 - **Admin_Service** → **Auth_Service**, **Profile_Service**, **Payment_Service**: 各種管理機能
