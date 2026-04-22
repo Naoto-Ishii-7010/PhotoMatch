@@ -129,6 +129,33 @@ pnpm lint     # Oxlint を実行
 
 - ルールは `rules/README.md` に列挙されたファイルを参照すること
 
+## 仕様書
+
+- プロジェクトの全要件仕様は `docs/SPEC.md` を起点として参照すること
+- 各機能の詳細仕様は `docs/spec/phase{1,2,3}/[機能名]/SPEC.md` に分割管理されている
+- サービスモジュール一覧と依存関係は `docs/SPEC.md` の「サービス間依存関係」セクションを参照
+- 実装時は対応する機能の仕様書を必ず確認し、受け入れ基準に従うこと
+
+**Phase 1 (MVP) の仕様:**
+- [認証](docs/spec/phase1/auth/SPEC.md)
+- [プロフィール](docs/spec/phase1/profile/SPEC.md)
+- [検索](docs/spec/phase1/search/SPEC.md)
+- [ポートフォリオ](docs/spec/phase1/portfolio/SPEC.md)
+- [スケジュール](docs/spec/phase1/schedule/SPEC.md)
+- [撮影依頼・予約](docs/spec/phase1/booking/SPEC.md)
+- [チャット](docs/spec/phase1/chat/SPEC.md)
+- [納品](docs/spec/phase1/delivery/SPEC.md)
+- [決済・売上](docs/spec/phase1/payment/SPEC.md)
+- [通知](docs/spec/phase1/notification/SPEC.md)
+- [運営管理](docs/spec/phase1/admin/SPEC.md)
+
+**Phase 2 (収益化・品質向上) の仕様:**
+- [レビュー](docs/spec/phase2/review/SPEC.md)
+- [写真販売・購入](docs/spec/phase2/photo-store/SPEC.md)
+
+**Phase 3 (運営強化) の仕様:**
+- [クレジットカード管理](docs/spec/phase3/payment-card-management/SPEC.md)
+
 ## カスタムスキル
 
 プロジェクト固有のスキルは `.claude/skills/` にあります。使い方は各ファイルを参照してください。
