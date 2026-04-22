@@ -80,6 +80,7 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 ### **検索・予約系**
 - **Search_Service** → **Profile_Service**, **Portfolio_Service**: フォトグラファー情報の取得
 - **Booking_Service** → **Schedule_Service**: 空き状況の確認・予約時のスロット更新
+- **Booking_Service** → **Payment_Service**: 予約確定時の事前決済
 - **Booking_Service** → **Notification_Service**: 予約リクエスト・承認・拒否通知
 
 ### **コミュニケーション系**
