@@ -26,7 +26,7 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 | **Payment_Service** | 決済・エスクロー・売上管理を担うモジュール |
 | **Notification_Service** | 通知配信を担うモジュール |
 | **Review_Service** | レビュー・評価を担うモジュール |
-| **Photo_Store** | 写真販売・購入を担うモジュール |
+| **Photo_Store_Service** | 写真販売・購入を担うモジュール |
 | **Admin_Service** | 運営管理を担うモジュール |
 | **依頼者** | 撮影を依頼するユーザー |
 | **フォトグラファー** | 撮影を提供するユーザー |
@@ -36,289 +36,84 @@ PhotoMatch は、写真撮影を依頼したいユーザー（依頼者）とフ
 
 ---
 
-## **フェーズ1（MVP）— コア機能**
-
----
-
-### **要件 1: 会員登録・ログイン**
-
-- **ユーザーストーリー:** 依頼者・フォトグラファーとして、Google アカウントで登録・ログインしたい。そうすることで、プラットフォームの機能を安全に利用できる。
-
-#### **受け入れ基準**
-
-1. THE Auth_Service SHALL Google の OAuth 2.0 連携によるアカウント登録・ログインを提供する
-2. THE Auth_Service SHALL JWT を用いたセッション管理を行い、アクセストークンの有効期限を 1 時間とする
-3. WHEN アクセストークンが期限切れになったとき、THE Auth_Service SHALL リフレッシュトークンを用いてセッションを自動更新する
-
----
-
-### **要件 2: プロフィール管理**
-
-- **ユーザーストーリー:** 登録ユーザーとして、自己紹介・アイコン・本人確認書類を登録・更新したい。そうすることで、信頼性の高いプロフィールを維持できる。
-
-#### **受け入れ基準**
-
-1. THE Profile_Service SHALL ユーザーが表示名・自己紹介文・アイコン画像を登録・更新できる機能を提供する
-2. WHEN アイコン画像がアップロードされたとき、THE Profile_Service SHALL 画像を JPEG または PNG 形式で最大 5MB まで受け付ける
-3. IF アップロードされた画像が 5MB を超えるとき、THEN THE Profile_Service SHALL「ファイルサイズは 5MB 以下にしてください」というエラーを返す
-4. THE Profile_Service SHALL 本人確認書類（運転免許証・パスポート・マイナンバーカード）の画像アップロードを受け付ける
-5. WHEN 本人確認書類が提出されたとき、THE Profile_Service SHALL 書類のステータスを「審査中」に設定する
-6. WHEN 管理者が本人確認を承認したとき、THE Profile_Service SHALL プロフィールに「本人確認済み」バッジを付与する
-
----
-
-### **要件 3: フォトグラファー検索**
-
-- **ユーザーストーリー:** 依頼者として、エリア・ジャンル・評価・価格帯でフォトグラファーを検索したい。そうすることで、条件に合ったフォトグラファーを見つけられる。
-
-#### **受け入れ基準**
-
-1. THE Search_Service SHALL エリア・撮影ジャンル・評価スコア・価格帯を組み合わせた検索を提供する
-2. WHEN 検索クエリが送信されたとき、THE Search_Service SHALL 3 秒以内に結果を返す
-3. THE Search_Service SHALL 検索結果を「評価順」「価格の安い順」「新着順」で並び替える機能を提供する
-4. WHEN 検索条件に一致するフォトグラファーが存在しないとき、THE Search_Service SHALL「条件に一致するフォトグラファーが見つかりませんでした」というメッセージを表示する
-5. THE Search_Service SHALL フォトグラファーの一覧にアイコン・表示名・評価スコア・最低価格・対応エリアを表示する
-
----
-
-### **要件 4: ポートフォリオ登録**
-
-- **ユーザーストーリー:** フォトグラファーとして、過去の作品・スキル・機材情報を登録したい。そうすることで、依頼者に自分の実力をアピールできる。
-
-#### **受け入れ基準**
-
-1. THE Portfolio_Service SHALL フォトグラファーが作品画像・キャプション・撮影ジャンルを登録できる機能を提供する
-2. THE Portfolio_Service SHALL 1 アカウントあたり最大 100 枚ের 作品画像を保存する
-3. WHEN 作品画像がアップロードされたとき、THE Portfolio_Service SHALL JPEG・PNG・WebP 形式で最大 20MB まで受け付ける
-4. IF アップロードされた画像が 20MB を超えるとき、THEN THE Portfolio_Service SHALL「ファイルサイズは 20MB 以下にしてください」というエラーを返す
-5. THE Portfolio_Service SHALL フォトグラファーが使用機材・スキルタグを登録できる機能を提供する
-6. THE Portfolio_Service SHALL 登録された作品をフォトグラファーのプロフィールページに公開する
-
----
-
-### **要件 5: スケジュール管理**
-
-- **ユーザーストーリー:** フォトグラファーとして、撮影対応可能な日時をカレンダーで管理したい。そうすることで、依頼者に正確な空き状況を提示できる。
-
-#### **受け入れ基準**
-
-1. THE Schedule_Service SHALL フォトグラファーが対応可能な日時スロットを登録・更新・削除できる機能を提供する
-2. THE Schedule_Service SHALL カレンダー形式で空き状況を表示する
-3. WHEN 予約が確定したとき、THE Schedule_Service SHALL 該当日時スロットを「予約済み」に変更する
-4. WHILE 日時スロットが「予約済み」の状態のとき、THE Schedule_Service SHALL 同一スロットへの新規予約を拒否する
-5. IF フォトグラファーが予約済みスロットを削除しようとしたとき、THEN THE Schedule_Service SHALL「予約済みのスロットは削除できません」という警告を表示する
-
----
-
-### **要件 6: 撮影依頼（指名型）**
-
-- **ユーザーストーリー:** 依頼者として、特定のフォトグラファーの空き状況を確認して予約したい。そうすることで、希望のフォトグラファーに撮影を依頼できる。
-
-#### **受け入れ基準**
-
-1. THE Booking_Service SHALL 依頼者が特定のフォトグラファーの空き日時スロットを選択して予約リクエストを送信できる機能を提供する
-2. WHEN 予約リクエストが送信されたとき、THE Booking_Service SHALL フォトグラファーに通知を送信する
-3. WHEN フォトグラファーが予約を承認したとき、THE Booking_Service SHALL 予約ステータスを「確定」に変更し、依頼者に通知する
-4. WHEN フォトグラファーが予約を拒否したとき、THE Booking_Service SHALL 予約ステータスを「拒否」に変更し、依頼者に通知する
-5. IF フォトグラファーが 48 時間以内に応答しないとき、THEN THE Booking_Service SHALL 予約リクエストを自動的にキャンセルし、依頼者に通知する
-6. THE Booking_Service SHALL 依頼者が撮影場所・希望内容・予算を入力できるフォームを提供する
-
----
-
-### **要件 7: 撮影依頼（公募型）**
-
-- **ユーザーストーリー:** 依頼者として、日時・予算・希望内容を投稿してフォトグラファーからの応募を募りたい。そうすることで、複数のフォトグラファーから提案を受けられる。
-
-#### **受け入れ基準**
-
-1. THE Booking_Service SHALL 依頼者が撮影日時・場所・予算・希望内容を含む公募依頼を投稿できる機能を提供する
-2. WHEN 公募依頼が投稿されたとき、THE Booking_Service SHALL 条件に合うフォトグラファーに通知を送信する
-3. THE Booking_Service SHALL フォトグラファーが公募依頼に対して提案（金額・コメント）を送信できる機能を提供する
-4. WHEN 依頼者が提案を承認したとき、THE Booking_Service SHALL 予約ステータスを「確定」に変更し、双方に通知する
-5. THE Booking_Service SHALL 公募依頼の有効期限を投稿から 7 日間とする
-6. WHEN 公募依頼が期限切れになったとき、THE Booking_Service SHALL ステータスを「期限切れ」に変更する
-
----
-
-### **要件 8: チャット・メッセージ**
-
-- **ユーザーストーリー:** 依頼者・フォトグラファーとして、撮影前の打ち合わせや場所の相談をチャットで行いたい。そうすることで、スムーズなコミュニケーションができる。
-
-#### **受け入れ基準**
-
-1. THE Chat_Service SHALL 予約が確定した依頼者とフォトグラファーの間にチャットルームを作成する
-2. THE Chat_Service SHALL テキストメッセージの送受信をリアルタイムで提供する
-3. THE Chat_Service SHALL 画像・PDF ファイル（最大 10MB）の送信を提供する
-4. IF 送信ファイルが 10MB を超えるとき、THEN THE Chat_Service SHALL「ファイルサイズは 10MB 以下にしてください」というエラーを返す
-5. WHEN 新しいメッセージが届いたとき、THE Notification_Service SHALL 受信者にプッシュ通知またはメール通知を送信する
-6. THE Chat_Service SHALL メッセージの既読・未読状態を管理する
-
----
-
-### **要件 9: 写真納品**
-
-- **ユーザーストーリー:** フォトグラファーとして、撮影した写真データをアップロードして依頼者に納品したい。そうすることで、安全かつ確実に成果物を届けられる。
-
-#### **受け入れ基準**
-
-1. THE Delivery_Service SHALL フォトグラファーが撮影済み写真を予約に紐づけてアップロードできる機能を提供する
-2. THE Delivery_Service SHALL アップロードされた写真に対してダウンロード用 URL を生成する
-3. WHEN 写真がアップロードされたとき、THE Delivery_Service SHALL 依頼者に納品通知を送信する
-4. THE Delivery_Service SHALL 依頼者が納品物を確認して「受領完了」を承認できる機能を提供する
-5. WHEN 依頼者が受領完了を承認したとき、THE Payment_Service SHALL エスクロー保留中の代金をフォトグラファーに送金する
-6. THE Delivery_Service SHALL 納品 URL の有効期限を受領完了から 30 日間とする
-
----
-
-### **要件 10: 決済保護（エスクロー）**
-
-- **ユーザーストーリー:** 依頼者・フォトグラファーとして、納品完了まで代金が安全に保護されることを確認したい。そうすることで、安心して取引できる。
-
-#### **受け入れ基準**
-
-1. WHEN 予約が確定したとき、THE Payment_Service SHALL 依頼者に対して代金の事前決済を要求する
-2. WHILE 代金がエスクロー保留中のとき、THE Payment_Service SHALL フォトグラファーへの送金を保留する
-3. WHEN 依頼者が受領完了を承認したとき、THE Payment_Service SHALL 手数料を差し引いた金額をフォトグラファーの売上残高に加算する
-4. IF 依頼者が納品から 7 日以内に受領完了を承認しないとき、THEN THE Payment_Service SHALL 自動的に受領完了とみなし、フォトグラファーへの送金処理を行う
-5. THE Payment_Service SHALL クレジットカード決済（Visa・Mastercard・JCB・American Express）を提供する
-
----
-
-### **要件 11: 売上・振込管理**
-
-- **ユーザーストーリー:** フォトグラファーとして、売上を確認して自身の口座に振込申請したい。そうすることで、報酬を適切に受け取れる。
-
-#### **受け入れ基準**
-
-1. THE Payment_Service SHALL フォトグラファーが売上残高・取引履歴を確認できるダッシュボードを提供する
-2. THE Payment_Service SHALL フォトグラファーが振込申請できる機能を提供する
-3. THE Payment_Service SHALL 振込申請の最低金額を 1,000 円とする
-4. IF 振込申請額が売上残高を超えるとき、THEN THE Payment_Service SHALL「残高が不足しています」というエラーを返す
-5. WHEN 振込申請が承認されたとき、THE Payment_Service SHALL 3 営業日以内に指定口座へ振込を実行する
-
----
-
-### **要件 12: 通知機能**
-
-- **ユーザーストーリー:** 依頼者・フォトグラファーとして、依頼・メッセージ・支払い等の重要なイベントをリアルタイムで通知されたい。そうすることで、迅速に対応できる。
-
-#### **受け入れ基準**
-
-1. THE Notification_Service SHALL 予約リクエスト・承認・拒否・キャンセルのイベントで対象ユーザーに通知を送信する
-2. THE Notification_Service SHALL 新着メッセージのイベントで受信者に通知を送信する
-3. THE Notification_Service SHALL 支払い完了・受領完了・振込完了のイベントで対象ユーザーに通知を送信する
-4. THE Notification_Service SHALL アプリ内通知とメール通知の両方を提供する
-5. THE Notification_Service SHALL ユーザーが通知種別ごとに受信設定を変更できる機能を提供する
-
----
-
-### **要件 13: ユーザー管理（運営）**
-
-- **ユーザーストーリー:** 運営管理者として、ユーザーのステータス確認・違反報告対応を行いたい。そうすることで、プラットフォームの健全性を維持できる。
-
-#### **受け入れ基準**
-
-1. THE Admin_Service SHALL 管理者がユーザー一覧・ステータス・登録日時を確認できる管理画面を提供する
-2. THE Admin_Service SHALL 管理者がユーザーアカウントを停止・再開できる機能を提供する
-3. WHEN ユーザーアカウントが停止されたとき、THE Auth_Service SHALL 該当ユーザーのセッションを無効化する
-4. THE Admin_Service SHALL 管理者が本人確認書類を審査して承認・拒否できる機能を提供する
-5. THE Admin_Service SHALL 管理者が違反報告を確認して対応ステータスを管理できる機能を提供する
-
----
-
-### **要件 14: 取引・決済管理（運営）**
-
-- **ユーザーストーリー:** 運営管理者として、キャンセル・返金処理・売上手数料を管理したい。そうすることで、健全な取引環境を維持できる。
-
-#### **受け入れ基準**
-
-1. THE Admin_Service SHALL 管理者が取引一覧・ステータス・金額を確認できる機能を提供する
-2. THE Admin_Service SHALL 管理者が手動でキャンセル・返金処理を実行できる機能を提供する
-3. WHEN 返金処理が実行されたとき、THE Payment_Service SHALL 5 営業日以内に依頼者の支払い方法に返金する
-4. THE Admin_Service SHALL プラットフォーム手数料率を設定・変更できる機能を提供する
-5. THE Admin_Service SHALL 期間別の売上・手数料収入のレポートを提供する
-
----
-
-## **フェーズ2 — 収益化・品質向上**
-
----
-
-### **要件 15: レビュー投稿**
-
-- **ユーザーストーリー:** 依頼者として、撮影後に感想と星評価を投稿したい。そうすることで、他の依頼者がフォトグラファーを選ぶ際の参考情報を提供できる。
-
-#### **受け入れ基準**
-
-1. WHEN 依頼者が受領完了を承認したとき、THE Review_Service SHALL レビュー投稿フォームを提示する
-2. THE Review_Service SHALL 1〜5 の星評価とテキストコメント（最大 500 文字）の投稿を受け付ける
-3. THE Review_Service SHALL 1 つの取引に対して 1 件のレビューのみ受け付ける
-4. IF 依頼者が同一取引に対して 2 件目のレビューを投稿しようとしたとき、THEN THE Review_Service SHALL「この取引のレビューはすでに投稿されています」というエラーを返す
-5. THE Review_Service SHALL フォトグラファーのプロフィールページに平均評価スコアとレビュー一覧を表示する
-
----
-
-### **要件 16: 写真販売登録（フォトグラファー）**
-
-- **ユーザーストーリー:** フォトグラファーとして、自身の作品に価格を設定して販売公開したい。そうすることで、撮影依頼以外の収益を得られる。
-
-#### **受け入れ基準**
-
-1. THE Photo_Store SHALL フォトグラファーが作品画像に価格・タイトル・説明を設定して販売公開できる機能を提供する
-2. THE Photo_Store SHALL 販売価格の最低金額を 100 円とする
-3. IF 設定価格が 100 円未満のとき、THEN THE Photo_Store SHALL「販売価格は 100 円以上に設定してください」というエラーを返す
-4. THE Photo_Store SHALL フォトグラファーが作品の公開・非公開を切り替えられる機能を提供する
-5. WHEN 作品が購入されたとき、THE Payment_Service SHALL 手数料を差し引いた金額をフォトグラファーの売上残高に加算する
-
----
-
-### **要件 17: 写真購入（依頼者）**
-
-- **ユーザーストーリー:** 依頼者として、公開されているおすすめ写真を選択・購入したい。そうすることで、気に入った作品を入手できる。
-
-#### **受け入れ基準**
-
-1. THE Photo_Store SHALL 依頼者が公開中の作品を閲覧・購入できる機能を提供する
-2. WHEN 依頼者が作品を購入したとき、THE Delivery_Service SHALL 高解像度画像のダウンロード URL を発行する
-3. THE Photo_Store SHALL 購入前の作品プレビューにウォーターマークを付与する
-4. THE Photo_Store SHALL 購入済み作品の一覧を依頼者のマイページに表示する
-
----
-
-### **要件 18: ウォーターマーク**
-
-- **ユーザーストーリー:** フォトグラファーとして、購入前の写真に透かしを付与して不正保存を防止したい。そうすることで、作品の著作権を保護できる。
-
-#### **受け入れ基準**
-
-1. THE Photo_Store SHALL 未購入の作品プレビュー画像にウォーターマークを付与して配信する
-2. THE Photo_Store SHALL ウォーターマークを画像の中央に配置し、元画像の視認性を損なわない透明度で表示する
-3. WHEN 作品が購入されたとき、THE Delivery_Service SHALL ウォーターマークなしの高解像度画像を提供する
-
----
-
-## **フェーズ3 — 運営強化・拡張**
-
----
-
-### **要件 19: オンライン決済（クレジットカード）**
-
-- **ユーザーストーリー:** 依頼者として、クレジットカードでオンライン決済したい。そうすることで、安全かつ簡単に支払いができる。
-
-#### **受け入れ基準**
-
-1. THE Payment_Service SHALL Visa・Mastercard・JCB・American Express のクレジットカード決済を提供する
-2. THE Payment_Service SHALL カード情報を PCI DSS 準拠の決済プロバイダー（Stripe 等）に委託し、System 内にカード番号を保存しない
-3. IF 決済が失敗したとき、THEN THE Payment_Service SHALL「決済に失敗しました。カード情報をご確認ください」というエラーを返す
-4. WHEN 決済が完了したとき、THE Payment_Service SHALL 依頼者にメールで領収書を送信する
-5. THE Payment_Service SHALL 依頼者が複数のクレジットカードを登録・管理できる機能を提供する
-
----
-
 ## **実装フェーズまとめ**
 
-| **フェーズ** | **優先度** | **含まれる要件** |
-| --- | --- | --- |
-| フェーズ1（MVP） | 高 | 要件 1〜14（認証・プロフィール・検索・ポートフォリオ・スケジュール・指名型依頼・公募型依頼・チャット・納品・エスクロー・売上管理・通知・運営管理） |
-| フェーズ2（収益化・品質向上） | 中 | 要件 15〜18（レビュー・写真販売・写真購入・ウォーターマーク） |
-| フェーズ3（運営強化・拡張） | 低 | 要件 19（クレジットカード詳細管理） |
+### **Phase 1 (MVP) — コア機能**
+
+| 要件 | 機能 | 仕様書 | 担当サービス |
+|------|------|--------|-------------|
+| 要件1 | 会員登録・ログイン | [auth/SPEC.md](./spec/phase1/auth/SPEC.md) | Auth_Service |
+| 要件2 | プロフィール管理 | [profile/SPEC.md](./spec/phase1/profile/SPEC.md) | Profile_Service |
+| 要件3 | フォトグラファー検索 | [search/SPEC.md](./spec/phase1/search/SPEC.md) | Search_Service |
+| 要件4 | ポートフォリオ登録 | [portfolio/SPEC.md](./spec/phase1/portfolio/SPEC.md) | Portfolio_Service |
+| 要件5 | スケジュール管理 | [schedule/SPEC.md](./spec/phase1/schedule/SPEC.md) | Schedule_Service |
+| 要件6, 7 | 撮影依頼（指名型・公募型） | [booking/SPEC.md](./spec/phase1/booking/SPEC.md) | Booking_Service |
+| 要件8 | チャット・メッセージ | [chat/SPEC.md](./spec/phase1/chat/SPEC.md) | Chat_Service |
+| 要件9 | 写真納品 | [delivery/SPEC.md](./spec/phase1/delivery/SPEC.md) | Delivery_Service |
+| 要件10, 11 | 決済保護（エスクロー）・売上管理 | [payment/SPEC.md](./spec/phase1/payment/SPEC.md) | Payment_Service |
+| 要件12 | 通知機能 | [notification/SPEC.md](./spec/phase1/notification/SPEC.md) | Notification_Service |
+| 要件13, 14 | 運営管理（ユーザー・取引） | [admin/SPEC.md](./spec/phase1/admin/SPEC.md) | Admin_Service |
+
+### **Phase 2 (収益化・品質向上)**
+
+| 要件 | 機能 | 仕様書 | 担当サービス |
+|------|------|--------|-------------|
+| 要件15 | レビュー投稿 | [review/SPEC.md](./spec/phase2/review/SPEC.md) | Review_Service |
+| 要件16, 17, 18 | 写真販売・購入・ウォーターマーク | [photo-store/SPEC.md](./spec/phase2/photo-store/SPEC.md) | Photo_Store_Service |
+
+### **Phase 3 (運営強化・拡張)**
+
+| 要件 | 機能 | 仕様書 | 担当サービス |
+|------|------|--------|-------------|
+| 要件19 | クレジットカード詳細管理 | [payment-card-management/SPEC.md](./spec/phase3/payment-card-management/SPEC.md) | Payment_Service |
+
+---
+
+## **サービス間依存関係**
+
+以下は主要なサービス間の依存関係です:
+
+### **認証・プロフィール系**
+- **Profile_Service** → **Auth_Service**: ユーザー認証情報の参照
+- **Admin_Service** → **Auth_Service**: アカウント停止時のセッション無効化
+
+### **検索・予約系**
+- **Search_Service** → **Profile_Service**, **Portfolio_Service**: フォトグラファー情報の取得
+- **Booking_Service** → **Schedule_Service**: 空き状況の確認・予約時のスロット更新
+- **Booking_Service** → **Payment_Service**: 予約確定時の事前決済
+- **Booking_Service** → **Notification_Service**: 予約リクエスト・承認・拒否通知
+
+### **コミュニケーション系**
+- **Chat_Service** → **Booking_Service**: 確定予約に紐づくチャットルーム作成
+- **Chat_Service** → **Notification_Service**: 新着メッセージ通知
+
+### **納品・決済系**
+- **Delivery_Service** → **Booking_Service**: 予約に紐づく写真納品
+- **Delivery_Service** → **Payment_Service**: 受領完了時のエスクロー解放
+- **Delivery_Service** → **Notification_Service**: 納品通知
+- **Payment_Service** → **Notification_Service**: 支払い完了・振込完了通知
+
+### **レビュー・販売系**
+- **Review_Service** → **Booking_Service**, **Delivery_Service**: 受領完了後のレビュー投稿
+- **Photo_Store_Service** → **Payment_Service**: 写真購入時の決済処理
+- **Photo_Store_Service** → **Delivery_Service**: 購入作品のダウンロードURL発行
+
+### **運営管理系**
+- **Admin_Service** → **Auth_Service**, **Profile_Service**, **Payment_Service**: 各種管理機能
+
+---
+
+## **詳細仕様の参照方法**
+
+各機能の詳細な要件・受け入れ基準は、上記テーブルのリンクから対応する仕様書を参照してください。
+
+仕様書は以下のディレクトリ構造で整理されています:
+
+```
+docs/
+├── SPEC.md (本ファイル)
+└── spec/
+    ├── phase1/  # MVP機能（11モジュール）
+    ├── phase2/  # 収益化・品質向上（2モジュール）
+    └── phase3/  # 運営強化（1モジュール）
+```
