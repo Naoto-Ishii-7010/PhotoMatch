@@ -1,14 +1,23 @@
 {
   "mcpServers": {
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
     "playwright": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@automatalabs/mcp-server-playwright"]
+      "args": ["@playwright/mcp@latest"],
+      "env": {}
     },
     "chrome-devtools": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
+      "args": ["chrome-devtools-mcp@latest"],
+      "env": {}
     },
     "figma-desktop": {
+      "type": "http",
       "url": "http://127.0.0.1:3845/mcp"
     }
   }
