@@ -1,10 +1,15 @@
 import HeroSection from "../../components/features/lp/HeroSection";
-import ServiceOverviewSection from "../../components/features/lp/ServiceOverviewSection";
-import TargetUsersSection from "../../components/features/lp/TargetUsersSection";
-import HowItWorksSection from "../../components/features/lp/HowItWorksSection";
-import FeaturesSection from "../../components/features/lp/FeaturesSection";
+import WhatIsSection from "../../components/features/lp/WhatIsSection";
+import StoriesSection from "../../components/features/lp/StoriesSection";
+import YouDecideSection from "../../components/features/lp/YouDecideSection";
+import UseCasesSection from "../../components/features/lp/UseCasesSection";
+import HostsSection from "../../components/features/lp/HostsSection";
+import PriceMechanismSection from "../../components/features/lp/PriceMechanismSection";
 import SafetySection from "../../components/features/lp/SafetySection";
-import CtaSection from "../../components/features/lp/CtaSection";
+import DualCtaSection from "../../components/features/lp/DualCtaSection";
+import StepsSection from "../../components/features/lp/StepsSection";
+import FaqSection from "../../components/features/lp/FaqSection";
+import FinalCtaSection from "../../components/features/lp/FinalCtaSection";
 
 /**
  * LPメインページ（/lp）
@@ -15,26 +20,41 @@ import CtaSection from "../../components/features/lp/CtaSection";
 export default function LpPage() {
   return (
     <>
-      {/* P1: ヒーロー — キャッチコピーとスマートフォンモックアップ */}
+      {/* Hero — メインキャッチコピーと背景画像 */}
       <HeroSection />
 
-      {/* P2: サービス概要 — 2軸の価値（撮影予約 / ストックフォト） */}
-      <ServiceOverviewSection />
+      {/* WhatIs — 「撮ってほしい」と「撮りたい」をつなぐ */}
+      <WhatIsSection />
 
-      {/* P3: ターゲットユーザー — 依頼者・フォトグラファーのペルソナ */}
-      <TargetUsersSection />
+      {/* Stories — 具体的な利用シナリオ */}
+      <StoriesSection />
 
-      {/* P4: 利用の流れ — 5ステップフロー */}
-      <HowItWorksSection />
+      {/* YouDecide — 価格と場所をあなたが決める */}
+      <YouDecideSection />
 
-      {/* P5〜P9: 機能紹介 — 主要機能のショーケース */}
-      <FeaturesSection />
+      {/* UseCases — こんなシーンで使われています */}
+      <UseCasesSection />
 
-      {/* P10: 安心・安全 — 本人確認・エスクロー・ウォーターマーク */}
+      {/* Hosts — 活躍中のホスト・作品例 */}
+      <HostsSection />
+
+      {/* PriceMechanism — 価格相談制の仕組み */}
+      <PriceMechanismSection />
+
+      {/* Safety — 安心・安全な仕組み */}
       <SafetySection />
 
-      {/* P12: 最終CTA — 新規会員登録訴求 */}
-      <CtaSection />
+      {/* DualCta — あなたは、どちらで使いますか？ */}
+      <DualCtaSection />
+
+      {/* Steps — 5ステップで完了 */}
+      <StepsSection />
+
+      {/* Faq — よくあるご質問 */}
+      <FaqSection />
+
+      {/* FinalCta — 最終CTA */}
+      <FinalCtaSection />
     </>
   );
 }
