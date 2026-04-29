@@ -5,12 +5,21 @@
   --foreground: #171717;
 
   /* LP専用カラー変数 */
-  --lp-cream: #f8f5ef;
-  --lp-gold: #c9a96e;
-  --lp-gold-light: #e8d5b0;
-  --lp-green: #7fb5a0;
-  --lp-dark: #2c2c2c;
-  --lp-gray: #6b6b6b;
+  --lp-cream: #faf6ef;
+  --lp-cream-2: #f3ece0;
+  --lp-cream-3: #ebe1cf;
+  --lp-ink: #2a2520;
+  --lp-ink-soft: #5a4f45;
+  --lp-ink-muted: #8a7f73;
+  --lp-brand: #8a6a3a;
+  --lp-brand-dark: #6a5028;
+  --lp-brand-2: #b08a52;
+  --lp-accent: #d85c3a;
+  --lp-accent-2: #ef7048;
+  --lp-guest: #2d6b63;
+  --lp-host: #c47a2e;
+  --lp-line: #e6ddce;
+  --lp-gold: #d4a955;
 }
 
 @theme inline {
@@ -21,22 +30,35 @@
 
   /* LP用カラーをTailwindテーマに登録 */
   --color-lp-cream: var(--lp-cream);
+  --color-lp-cream-2: var(--lp-cream-2);
+  --color-lp-cream-3: var(--lp-cream-3);
+  --color-lp-ink: var(--lp-ink);
+  --color-lp-ink-soft: var(--lp-ink-soft);
+  --color-lp-ink-muted: var(--lp-ink-muted);
+  --color-lp-brand: var(--lp-brand);
+  --color-lp-brand-dark: var(--lp-brand-dark);
+  --color-lp-brand-2: var(--lp-brand-2);
+  --color-lp-accent: var(--lp-accent);
+  --color-lp-accent-2: var(--lp-accent-2);
+  --color-lp-guest: var(--lp-guest);
+  --color-lp-host: var(--lp-host);
+  --color-lp-line: var(--lp-line);
   --color-lp-gold: var(--lp-gold);
-  --color-lp-gold-light: var(--lp-gold-light);
-  --color-lp-green: var(--lp-green);
-  --color-lp-dark: var(--lp-dark);
-  --color-lp-gray: var(--lp-gray);
+
+  /* LP用フォントファミリー */
+  --font-noto-serif: "Noto Serif JP", serif;
+  --font-zen-kaku: "Zen Kaku Gothic New", -apple-system, sans-serif;
+  --font-playfair: "Playfair Display", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-zen-kaku);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
 }

@@ -1,97 +1,112 @@
 /**
- * 安心・安全セクション
- * - PDFのP10: 本人確認・エスクロー機能・ウォーターマーク付与の3つの安全機能を紹介
+ * Safetyセクション
+ * - 安心・安全な仕組みを紹介
  */
-
-/** 安全機能アイテムのProps型 */
-type SafetyItemProps = {
-  iconPath: string;
-  title: string;
-  description: string;
-};
-
-/** 安全機能アイテムコンポーネント */
-function SafetyItem({ iconPath, title, description }: SafetyItemProps) {
-  return (
-    <div className="flex flex-col items-center text-center p-8 bg-white rounded-3xl border border-lp-green/20 hover:border-lp-green/50 hover:shadow-md transition-all">
-      {/* アイコン */}
-      <div className="w-16 h-16 rounded-full bg-lp-green/10 flex items-center justify-center mb-6">
-        <svg
-          className="w-8 h-8 text-lp-green"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d={iconPath}
-          />
-        </svg>
-      </div>
-
-      <h3 className="text-lg font-bold text-lp-dark mb-3">{title}</h3>
-      <p className="text-lp-gray text-sm leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
 export default function SafetySection() {
   return (
-    <section id="safety" className="bg-white py-20 lg:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="safety"
+      className="py-24 bg-gradient-to-b from-lp-cream to-white relative"
+    >
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* セクションヘッダー */}
         <div className="text-center mb-16">
-          {/* シールドアイコン */}
-          <div className="w-20 h-20 rounded-full bg-lp-green/10 flex items-center justify-center mx-auto mb-6">
-            <svg
-              className="w-10 h-10 text-lp-green"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-              />
-            </svg>
+          <div className="font-[family-name:var(--font-playfair)] text-sm text-lp-brand tracking-[0.3em] font-bold uppercase mb-3.5">
+            Safety &amp; Trust
           </div>
-
-          <h2 className="text-3xl sm:text-4xl font-bold text-lp-dark mb-4">
-            安心・安全な取引のために
+          <h2 className="font-[family-name:var(--font-noto-serif)] font-black text-[clamp(28px,3.8vw,44px)] leading-[1.4] mb-5 text-lp-ink">
+            アマチュア × 相談制だからこそ、
+            <br />
+            安心設計を徹底しています。
           </h2>
-          <p className="text-lp-gray text-lg max-w-xl mx-auto leading-relaxed">
-            PhotoMatch
-            は、依頼者とフォトグラファーが安心して取引できる環境を整えています。
+          <p className="text-lp-ink-soft max-w-[680px] mx-auto text-[15px]">
+            「知らない人と会うのは不安」——その気持ちに、真剣に向き合いました。
+            <br />
+            事前のやり取りで納得してから、撮影に進める仕組みです。
           </p>
         </div>
 
-        {/* 3つの安全機能 */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <SafetyItem
-            title="本人確認"
-            description="免許証等の提出を必須化し、プラットフォームの信頼性を確保。管理者が審査してバッジを付与します。"
-            iconPath="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-          />
-          <SafetyItem
-            title="エスクロー機能"
-            description="納品完了ボタンが押されるまで事務局が代金を保持し、金銭トラブルを防止。安全が確認されてから送金します。"
-            iconPath="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-          />
-          <SafetyItem
-            title="ウォーターマーク付与"
-            description="写真購入前のプレビュー画像に自動で透かしを付与し、不正保存を防止。フォトグラファーの著作権を守ります。"
-            iconPath="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
+        {/* メインカード2つ */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1080px] mx-auto mb-6">
+          {/* カード1 */}
+          <div className="bg-white border border-lp-line rounded-[20px] overflow-hidden grid grid-cols-1 md:grid-cols-[180px_1fr] hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(40,32,22,0.04),0_8px_24px_rgba(40,32,22,0.08)] transition-all duration-200">
+            <div
+              className="h-[180px] md:h-auto bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=400&h=400&fit=crop&q=80')",
+              }}
+            />
+            <div className="p-6">
+              <h4 className="font-[family-name:var(--font-noto-serif)] text-lg font-bold mb-2 flex items-center gap-2 text-lp-ink">
+                <span className="w-6 h-6 rounded-full bg-lp-brand text-white flex items-center justify-center font-[family-name:var(--font-playfair)] text-xs font-black">
+                  1
+                </span>
+                事前チャットで納得してから依頼
+              </h4>
+              <p className="text-[13px] text-lp-ink-soft leading-[1.8]">
+                依頼を確定する前に、アプリ内チャットでホストとじっくりやり取り可能。撮影スタイル・当日の流れ・納品形式など、気になることは事前に相談して納得してから進められます。
+              </p>
+            </div>
+          </div>
+
+          {/* カード2 */}
+          <div className="bg-white border border-lp-line rounded-[20px] overflow-hidden grid grid-cols-1 md:grid-cols-[180px_1fr] hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(40,32,22,0.04),0_8px_24px_rgba(40,32,22,0.08)] transition-all duration-200">
+            <div
+              className="h-[180px] md:h-auto bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=400&fit=crop&q=80')",
+              }}
+            />
+            <div className="p-6">
+              <h4 className="font-[family-name:var(--font-noto-serif)] text-lg font-bold mb-2 flex items-center gap-2 text-lp-ink">
+                <span className="w-6 h-6 rounded-full bg-lp-brand text-white flex items-center justify-center font-[family-name:var(--font-playfair)] text-xs font-black">
+                  2
+                </span>
+                レビュー・評価で実力を事前確認
+              </h4>
+              <p className="text-[13px] text-lp-ink-soft leading-[1.8]">
+                過去の依頼者による★評価とレビューコメントを、依頼前に必ずチェックできます。作品ポートフォリオも公開されているので、「どんな写真を撮る方か」を事前にしっかり確認できます。
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* 補足テキスト */}
-        <p className="text-center text-lp-gray text-sm mt-10">
-          ※ プラットフォーム手数料は取引成立時のみ発生します（20%）
-        </p>
+        {/* 追加の安心要素 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[1080px] mx-auto">
+          <div className="bg-lp-cream border border-lp-line rounded-xl p-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-white border-2 border-lp-brand-2 flex items-center justify-center text-[22px] mx-auto mb-2.5">
+              🪪
+            </div>
+            <h5 className="text-sm font-bold mb-1 text-lp-ink">本人確認必須</h5>
+            <p className="text-xs text-lp-ink-soft">
+              免許証・マイナンバーで全ホスト本人確認済み
+            </p>
+          </div>
+          <div className="bg-lp-cream border border-lp-line rounded-xl p-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-white border-2 border-lp-brand-2 flex items-center justify-center text-[22px] mx-auto mb-2.5">
+              💳
+            </div>
+            <h5 className="text-sm font-bold mb-1 text-lp-ink">
+              安全な決済システム
+            </h5>
+            <p className="text-xs text-lp-ink-soft">
+              アプリ内決済で料金トラブルなし。現金授受なし
+            </p>
+          </div>
+          <div className="bg-lp-cream border border-lp-line rounded-xl p-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-white border-2 border-lp-brand-2 flex items-center justify-center text-[22px] mx-auto mb-2.5">
+              🛡️
+            </div>
+            <h5 className="text-sm font-bold mb-1 text-lp-ink">
+              満足保証・返金対応
+            </h5>
+            <p className="text-xs text-lp-ink-soft">
+              納品に満足できない場合は運営が仲介・返金対応
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

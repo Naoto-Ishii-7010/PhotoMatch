@@ -1,180 +1,126 @@
 import Link from "next/link";
 
 /**
- * LPヒーローセクション
- * - サービスのキャッチコピー・サブコピー・CTAボタンを配置
- * - PDFのP1デザイン: 左にテキスト、右にスマートフォンモックアップ
+ * Heroセクション
+ * - メインキャッチコピー・背景画像・CTA・統計情報を配置
  */
 export default function HeroSection() {
   return (
-    <section className="bg-lp-cream min-h-[85vh] flex items-center">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* テキストエリア */}
+    <section className="relative overflow-hidden min-h-[680px] bg-lp-ink">
+      {/* 背景画像 */}
+      <div
+        className="absolute inset-0 bg-cover bg-center brightness-[0.55] saturate-90"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&h=1000&fit=crop&q=80')",
+        }}
+      >
+        {/* グラデーションオーバーレイ */}
+        <div className="absolute inset-0 bg-gradient-to-r from-lp-ink/85 via-lp-ink/55 to-lp-ink/15" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at bottom left, rgba(216, 92, 58, 0.25), transparent 60%)",
+          }}
+        />
+      </div>
+
+      {/* コンテンツ */}
+      <div className="relative max-w-[1200px] mx-auto px-6 py-[100px] pb-[120px] text-lp-cream">
+        {/* リボン */}
+        <span className="inline-flex items-center gap-2 px-4 py-[7px] rounded-full bg-lp-cream/10 backdrop-blur-sm text-lp-cream text-xs font-bold tracking-widest">
+          📸 写真のC2Cマッチングサービス
+        </span>
+
+        {/* メインタイトル */}
+        <h1 className="font-[family-name:var(--font-noto-serif)] font-black text-[clamp(38px,6vw,76px)] leading-[1.18] tracking-tight mt-[22px] mb-6 max-w-[780px]">
+          プロじゃなくていい。
+          <br />
+          <span className="relative text-lp-accent-2">
+            「いい写真」
+            <span className="absolute left-[-4px] right-[-4px] bottom-[6px] h-[14px] bg-lp-accent/30 -z-10" />
+          </span>
+          は、
+          <br />
+          もっと気軽に。
+        </h1>
+
+        {/* リード文 */}
+        <p className="text-[17px] text-lp-cream/85 max-w-[560px] mb-7 leading-relaxed">
+          趣味で写真を撮るアマチュアと、
+          <br />
+          素敵な一枚を手頃に残したい人をつなぐマッチングサービス。
+          <br />
+          好きが仕事に、思い出がもっと身近に。
+        </p>
+
+        {/* バッジ群 */}
+        <div className="flex flex-wrap gap-2.5 mb-9">
+          <div className="inline-flex items-center gap-2 bg-lp-cream/12 backdrop-blur-md border border-lp-cream/20 px-3.5 py-2 rounded-[10px] text-[13px] font-bold text-lp-cream">
+            <span className="text-lp-gold text-[15px]">💰</span>
+            価格はあなたが決める
+          </div>
+          <div className="inline-flex items-center gap-2 bg-lp-cream/12 backdrop-blur-md border border-lp-cream/20 px-3.5 py-2 rounded-[10px] text-[13px] font-bold text-lp-cream">
+            <span className="text-lp-gold text-[15px]">📍</span>
+            場所もあなたが決める
+          </div>
+          <div className="inline-flex items-center gap-2 bg-lp-cream/12 backdrop-blur-md border border-lp-cream/20 px-3.5 py-2 rounded-[10px] text-[13px] font-bold text-lp-cream">
+            <span className="text-lp-gold text-[15px]">💬</span>
+            事前チャットで安心
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          <Link
+            href="/auth/register?role=requester"
+            className="inline-flex items-center justify-center gap-2.5 px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-guest shadow-[0_8px_20px_rgba(45,107,99,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
+          >
+            撮ってほしい方はこちら →
+          </Link>
+          <Link
+            href="/auth/register?role=photographer"
+            className="inline-flex items-center justify-center gap-2.5 px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-host shadow-[0_8px_20px_rgba(196,122,46,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
+          >
+            撮りたい方はこちら →
+          </Link>
+        </div>
+
+        {/* 統計 */}
+        <div className="flex gap-10 pt-8 border-t border-lp-cream/20 max-w-[600px]">
           <div>
-            <p className="text-lp-gold text-sm font-medium tracking-widest uppercase mb-4">
-              フォトマッチングプラットフォーム
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-lp-dark leading-tight mb-6">
-              プロの技術を
-              <br />
-              手軽に。
-            </h1>
-            <p className="text-lp-gray text-lg leading-relaxed mb-8 max-w-md">
-              写真を依頼したいゲストと、スキルを提供するホストを繋ぐ次世代エコシステム。
-              <br />
-              あなたの大切な瞬間を、プロが形にします。
-            </p>
-
-            {/* CTAボタン群 */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/auth/register"
-                className="inline-flex items-center justify-center bg-lp-gold text-white px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-opacity shadow-md"
-              >
-                無料で始める
-              </Link>
-              <Link
-                href="#how-it-works"
-                className="inline-flex items-center justify-center border border-lp-dark text-lp-dark px-8 py-4 rounded-full text-base font-medium hover:bg-lp-dark hover:text-white transition-colors"
-              >
-                使い方を見る
-              </Link>
-            </div>
-
-            {/* 補足テキスト */}
-            <p className="text-lp-gray text-xs mt-4">
-              ※ 登録無料・クレジットカード不要
-            </p>
+            <span className="font-[family-name:var(--font-playfair)] font-black text-[30px] text-lp-gold block leading-none">
+              2,400+
+            </span>
+            <span className="text-xs text-lp-cream/70 mt-1.5 tracking-wide block">
+              登録ホスト
+            </span>
           </div>
-
-          {/* スマートフォンモックアップ */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* スマートフォン外枠 */}
-              <div className="w-64 h-[520px] sm:w-72 sm:h-[580px] bg-lp-dark rounded-[3rem] shadow-2xl p-3 relative">
-                {/* ノッチ */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-lp-dark rounded-b-2xl z-10" />
-                {/* 画面 */}
-                <div className="w-full h-full bg-lp-cream rounded-[2.5rem] overflow-hidden flex flex-col">
-                  {/* ステータスバー */}
-                  <div className="h-8 bg-white/20 flex items-center justify-between px-6 pt-2">
-                    <span className="text-[10px] text-lp-dark font-medium">
-                      9:41
-                    </span>
-                    <div className="flex gap-1">
-                      <div className="w-3 h-3 rounded-full bg-lp-dark/40" />
-                      <div className="w-3 h-3 rounded-full bg-lp-dark/40" />
-                      <div className="w-3 h-3 rounded-full bg-lp-dark" />
-                    </div>
-                  </div>
-
-                  {/* モックアップコンテンツ: ホーム画面風 */}
-                  <div className="flex-1 p-4 flex flex-col gap-3">
-                    {/* 検索バー */}
-                    <div className="bg-white rounded-xl px-3 py-2 flex items-center gap-2 shadow-sm">
-                      <svg
-                        className="w-4 h-4 text-lp-gray"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
-                      <span className="text-xs text-lp-gray">
-                        キーワード、エリア、日付で検索
-                      </span>
-                    </div>
-
-                    {/* カテゴリグリッド */}
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        "家族写真",
-                        "SNS",
-                        "風景",
-                        "ポートレート",
-                        "イベント",
-                        "グルメ",
-                      ].map((cat) => (
-                        <div
-                          key={cat}
-                          className="bg-white rounded-lg p-2 flex flex-col items-center gap-1 shadow-sm"
-                        >
-                          <div className="w-8 h-8 rounded-full bg-lp-gold/20 flex items-center justify-center">
-                            <div className="w-4 h-4 rounded-full bg-lp-gold/60" />
-                          </div>
-                          <span className="text-[9px] text-lp-dark font-medium text-center leading-tight">
-                            {cat}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* 今週のピックアップ */}
-                    <div>
-                      <p className="text-[10px] font-semibold text-lp-dark mb-2">
-                        今週のピックアップ
-                      </p>
-                      <div className="bg-lp-green/20 rounded-xl h-20 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-10 h-10 rounded-full bg-lp-gold/40 mx-auto mb-1" />
-                          <span className="text-[9px] text-lp-dark">
-                            山田 健太 ★4.9
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ボトムナビ */}
-                  <div className="h-12 bg-white border-t border-gray-100 flex items-center justify-around px-4">
-                    {[
-                      {
-                        icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
-                        active: true,
-                      },
-                      {
-                        icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-                        active: false,
-                      },
-                      {
-                        icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
-                        active: false,
-                      },
-                      {
-                        icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
-                        active: false,
-                      },
-                    ].map((item, i) => (
-                      <svg
-                        key={i}
-                        className={`w-5 h-5 ${item.active ? "text-lp-gold" : "text-lp-gray/50"}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={item.active ? 2.5 : 1.5}
-                          d={item.icon}
-                        />
-                      </svg>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 装飾: 背景の円 */}
-              <div className="absolute -z-10 -top-8 -right-8 w-64 h-64 rounded-full bg-lp-gold/10" />
-              <div className="absolute -z-10 -bottom-8 -left-8 w-48 h-48 rounded-full bg-lp-green/10" />
-            </div>
+          <div>
+            <span className="font-[family-name:var(--font-playfair)] font-black text-[30px] text-lp-gold block leading-none">
+              18,000+
+            </span>
+            <span className="text-xs text-lp-cream/70 mt-1.5 tracking-wide block">
+              マッチング実績
+            </span>
           </div>
+          <div>
+            <span className="font-[family-name:var(--font-playfair)] font-black text-[30px] text-lp-gold block leading-none">
+              ★4.8
+            </span>
+            <span className="text-xs text-lp-cream/70 mt-1.5 tracking-wide block">
+              平均満足度
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* スクロールヒント */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-lp-cream/50 text-[11px] tracking-[0.3em]">
+        <div className="flex flex-col items-center">
+          <span className="[writing-mode:vertical-rl]">SCROLL</span>
+          <span className="block w-px h-9 bg-lp-cream/50 mt-2 animate-pulse" />
         </div>
       </div>
     </section>
