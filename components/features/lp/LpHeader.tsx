@@ -7,48 +7,58 @@ import Link from "next/link";
  */
 export default function LpHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-lp-cream/95 backdrop-blur-sm border-b border-lp-gold-light">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-lp-cream/95 backdrop-blur-xl border-b border-lp-line">
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[64px]">
         {/* ロゴ */}
-        <Link href="/lp" className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight text-lp-dark">
-            Photo
-            <span className="text-lp-gold">Match</span>
-          </span>
+        <Link
+          href="/lp"
+          className="font-[family-name:var(--font-noto-serif)] font-black text-[22px] tracking-tight"
+        >
+          <span className="text-black">Photo</span>
+          <span className="text-lp-brand">Match</span>
         </Link>
 
         {/* ナビゲーション（PCのみ表示） */}
-        <nav className="hidden md:flex items-center gap-8 text-sm text-lp-gray">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium">
           <Link
-            href="#how-it-works"
-            className="hover:text-lp-dark transition-colors"
+            href="#what"
+            className="text-lp-ink-soft hover:text-lp-brand transition-colors duration-200"
           >
-            使い方
+            サービスとは
           </Link>
           <Link
-            href="#features"
-            className="hover:text-lp-dark transition-colors"
+            href="#stories"
+            className="text-lp-ink-soft hover:text-lp-brand transition-colors duration-200"
           >
-            機能
+            こんな方に
           </Link>
-          <Link href="#safety" className="hover:text-lp-dark transition-colors">
+          <Link
+            href="#price"
+            className="text-lp-ink-soft hover:text-lp-brand transition-colors duration-200"
+          >
+            料金の仕組み
+          </Link>
+          <Link
+            href="#safety"
+            className="text-lp-ink-soft hover:text-lp-brand transition-colors duration-200"
+          >
             安心・安全
           </Link>
         </nav>
 
         {/* CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <Link
             href="/auth/login"
-            className="text-sm text-lp-dark hover:text-lp-gold transition-colors hidden sm:block"
+            className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-[13px] font-bold border-[1.5px] border-lp-ink text-lp-ink bg-transparent hover:bg-lp-ink hover:text-white transition-all duration-200"
           >
             ログイン
           </Link>
           <Link
             href="/auth/register"
-            className="text-sm bg-lp-gold text-white px-4 py-2 rounded-full hover:opacity-90 transition-opacity font-medium"
+            className="inline-flex items-center justify-center px-[30px] py-2.5 rounded-full text-[15px] font-bold text-white bg-lp-accent shadow-[0_8px_20px_rgba(216,92,58,0.35)] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(216,92,58,0.45)] transition-all duration-200"
           >
-            無料登録
+            無料ではじめる
           </Link>
         </div>
       </div>
