@@ -33,7 +33,7 @@
 | UI 要素                    | 遷移先                            | 備考               |
 | -------------------------- | --------------------------------- | ------------------ |
 | フォトグラファーカード     | `/photographers/[photographerId]` | 詳細へ             |
-| 作品カード                 | `/photographers/[photographerId]` | 撮影者詳細へ       |
+| 作品カード                 | `/portfolios/[portfolioId]`       | 作品個別詳細へ     |
 | `依頼する`、`フォローする` | ログイン時のみ有効                | 詳細ページ上で実行 |
 
 ---
@@ -74,6 +74,7 @@
 
 - [検索](../../domain/search/SPEC.md)
 - [フォトグラファー詳細](../photographer-detail/SPEC.md)
+- [ポートフォリオ詳細](../portfolio-detail/SPEC.md)
 
 ---
 

@@ -27,6 +27,7 @@
 | UI-102 | ログイン             | `/auth/login`                     | 未実装   | [auth-login/SPEC.md](auth-login/SPEC.md)                   |
 | UI-201 | フォトグラファー検索 | `/search`                         | 未実装   | [search/SPEC.md](search/SPEC.md)                           |
 | UI-202 | フォトグラファー詳細 | `/photographers/[photographerId]` | 未実装   | [photographer-detail/SPEC.md](photographer-detail/SPEC.md) |
+| UI-203 | ポートフォリオ詳細   | `/portfolios/[portfolioId]`       | 未実装   | [portfolio-detail/SPEC.md](portfolio-detail/SPEC.md)       |
 
 ### 一般会員向け画面
 
@@ -82,20 +83,20 @@
 
 ## 4. UI と機能仕様の対応
 
-| 画面                                  | 主に参照する機能仕様                                                                                                                                                                                                 |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ルートホーム（暫定）                  | なし                                                                                                                                                                                                                 |
-| LP                                    | [新規登録・ログイン](../domain/auth/SPEC.md)、[検索](../domain/search/SPEC.md)、[指名型依頼](../domain/direct-request/SPEC.md)、[公募型依頼](../domain/open-request/SPEC.md)、[通知](../domain/notification/SPEC.md) |
-| 新規登録 / ログイン                   | [新規登録・ログイン](../domain/auth/SPEC.md)                                                                                                                                                                         |
-| プロフィール編集                      | [プロフィール管理](../domain/profile/SPEC.md)                                                                                                                                                                        |
-| ポートフォリオ管理                    | [ポートフォリオ管理](../domain/portfolio/SPEC.md)                                                                                                                                                                    |
-| フォトグラファー検索 / 詳細           | [検索](../domain/search/SPEC.md)、[フォロー](../domain/follow/SPEC.md)、[指名型依頼](../domain/direct-request/SPEC.md)                                                                                               |
-| 指名依頼作成 / 詳細                   | [指名型依頼](../domain/direct-request/SPEC.md)、[チャット](../domain/chat/SPEC.md)、[通知](../domain/notification/SPEC.md)                                                                                           |
-| 公募作成 / 詳細 / 提案一覧 / 提案作成 | [公募型依頼・提案比較・選択](../domain/open-request/SPEC.md)、[案件検索](../domain/job-search/SPEC.md)                                                                                                               |
-| 案件検索                              | [案件検索](../domain/job-search/SPEC.md)                                                                                                                                                                             |
-| チャット一覧 / チャットルーム         | [チャット](../domain/chat/SPEC.md)、[通知](../domain/notification/SPEC.md)                                                                                                                                           |
-| 通知一覧                              | [通知](../domain/notification/SPEC.md)                                                                                                                                                                               |
-| 管理画面                              | [運営管理](../domain/admin/SPEC.md)                                                                                                                                                                                  |
+| 画面                                             | 主に参照する機能仕様                                                                                                                                                                                                 |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ルートホーム（暫定）                             | なし                                                                                                                                                                                                                 |
+| LP                                               | [新規登録・ログイン](../domain/auth/SPEC.md)、[検索](../domain/search/SPEC.md)、[指名型依頼](../domain/direct-request/SPEC.md)、[公募型依頼](../domain/open-request/SPEC.md)、[通知](../domain/notification/SPEC.md) |
+| 新規登録 / ログイン                              | [新規登録・ログイン](../domain/auth/SPEC.md)                                                                                                                                                                         |
+| プロフィール編集                                 | [プロフィール管理](../domain/profile/SPEC.md)                                                                                                                                                                        |
+| ポートフォリオ管理                               | [ポートフォリオ管理](../domain/portfolio/SPEC.md)                                                                                                                                                                    |
+| フォトグラファー検索 / 詳細 / ポートフォリオ詳細 | [検索](../domain/search/SPEC.md)、[ポートフォリオ管理](../domain/portfolio/SPEC.md)、[フォロー](../domain/follow/SPEC.md)、[指名型依頼](../domain/direct-request/SPEC.md)                                            |
+| 指名依頼作成 / 詳細                              | [指名型依頼](../domain/direct-request/SPEC.md)、[チャット](../domain/chat/SPEC.md)、[通知](../domain/notification/SPEC.md)                                                                                           |
+| 公募作成 / 詳細 / 提案一覧 / 提案作成            | [公募型依頼・提案比較・選択](../domain/open-request/SPEC.md)、[案件検索](../domain/job-search/SPEC.md)                                                                                                               |
+| 案件検索                                         | [案件検索](../domain/job-search/SPEC.md)                                                                                                                                                                             |
+| チャット一覧 / チャットルーム                    | [チャット](../domain/chat/SPEC.md)、[通知](../domain/notification/SPEC.md)                                                                                                                                           |
+| 通知一覧                                         | [通知](../domain/notification/SPEC.md)                                                                                                                                                                               |
+| 管理画面                                         | [運営管理](../domain/admin/SPEC.md)                                                                                                                                                                                  |
 
 ---
 
