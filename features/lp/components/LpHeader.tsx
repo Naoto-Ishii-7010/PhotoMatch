@@ -50,7 +50,7 @@ export default function LpHeader() {
         {/* CTA */}
         <div className="flex items-center gap-2.5">
           <div className="hidden sm:block">
-            <GoogleSignInButton variant="lpHeader" callbackUrl="/">
+            <GoogleSignInButton variant="lpHeader">
               Googleでログイン
             </GoogleSignInButton>
           </div>
