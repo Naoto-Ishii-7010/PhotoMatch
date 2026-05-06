@@ -22,8 +22,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // CLAUDE.md の規約に従い @/ エイリアスは使用しないが、
-      // Next.js との互換性のため定義のみ保持する
+      // Next.js / TypeScript と同じ @/ エイリアスを Vitest でも解決する
       "@": path.resolve(__dirname, "."),
     },
   },

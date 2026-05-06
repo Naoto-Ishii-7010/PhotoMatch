@@ -20,7 +20,7 @@
 - テスト (E2E): Playwright
 - ホスティング: Vercel
 - CI/CD: GitHub Actions
-- Linter: Oxlint
+- Linter: ESLint
 - フォーマッター: Prettier
 
 ## ディレクトリ構成
@@ -89,7 +89,6 @@ photo-match/
 
 - コンポーネントファイル名: `PascalCase.tsx`
 - ディレクトリ名: `kebab-case`
-- import パスエイリアス（`@/`）は使用しない（相対パスを使う）
 - 型定義は `interface` より `type` を基本とする
 - コンポーネントは Server Component を基本とし、Client Component は最小限にとどめる
 - コメントは日本語で細かく書く
@@ -109,16 +108,17 @@ photo-match/
 ## 開発
 
 ```bash
-pnpm dev      # 開発サーバーを起動
-pnpm build    # 本番用ビルド
-pnpm lint     # Oxlint を実行
+pnpm dev        # 開発サーバーを起動
+pnpm build      # 本番用ビルド
+pnpm lint:check # ESLint を実行
+pnpm code:check # ESLint と Prettier と TypeScript を実行
 ```
 
-- コード生成、変更、削除時には、Lint, Format, TypeScriptの型チェックを行うこと
+- コード生成、変更、削除時には、`pnpm code:check` を実行すること
 
 ## 参照ルール
 
-- ルールは `rules/README.md` に列挙されたファイルを参照すること
+- ルールは `/docs/rules/README.md` に列挙されたファイルを参照すること
 
 ## 仕様書
 

@@ -34,7 +34,7 @@ MVP では、以下のような体験を目指しています。
 - PostgreSQL
 - Vitest
 - Playwright
-- Oxlint
+- ESLint
 - Prettier
 - pnpm
 
@@ -68,10 +68,12 @@ pnpm dev
 pnpm dev            # 開発サーバー
 pnpm build          # 本番ビルド
 pnpm start          # 本番ビルドの起動
-pnpm lint           # Oxlint
-pnpm lint:fix       # Oxlint 自動修正
-pnpm format         # Prettier 整形
+pnpm lint:check     # ESLint チェック
+pnpm lint:fix       # ESLint 自動修正
 pnpm format:check   # Prettier チェック
+pnpm format:fix     # Prettier 整形
+pnpm code:check     # ESLint + Prettier + TypeScript チェック
+pnpm code:fix       # ESLint + Prettier 自動修正 + TypeScript チェック
 pnpm typecheck      # TypeScript 型チェック
 pnpm test           # Vitest
 pnpm test:watch     # Vitest watch
@@ -89,7 +91,7 @@ app/           Next.js App Router のルート
 components/    LP 用の UI コンポーネント
 docs/          サービス仕様、画面仕様、設計メモ
 public/        画像などの静的ファイル
-rules/         プロジェクト内ルールの整理
+docs/rules/    プロジェクト内ルールの整理
 types/         共通型置き場
 ```
 
@@ -100,4 +102,4 @@ README は人向けの入口ドキュメントです。詳細は用途ごとに�
 - サービス全体の要件と業務ルール: [`docs/SPEC.md`](docs/SPEC.md)
 - 画面仕様の全体像: [`docs/spec/ui/SPEC.md`](docs/spec/ui/SPEC.md)
 - デザインメモ: `docs/design/`
-- 開発ルール一覧: [`rules/README.md`](rules/README.md)
+- 開発ルール一覧: [`docs/rules/README.md`](docs/rules/README.md)
