@@ -20,7 +20,7 @@
 - テスト (E2E): Playwright
 - ホスティング: Vercel
 - CI/CD: GitHub Actions
-- Linter: Oxlint
+- Linter: ESLint
 - フォーマッター: Prettier
 
 ## ディレクトリ構成
@@ -111,7 +111,7 @@ photo-match/
 ```bash
 pnpm dev      # 開発サーバーを起動
 pnpm build    # 本番用ビルド
-pnpm lint     # Oxlint を実行
+pnpm lint     # ESLint を実行
 ```
 
 - コード生成、変更、削除時には、Lint, Format, TypeScriptの型チェックを行うこと

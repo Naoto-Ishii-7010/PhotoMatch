@@ -34,7 +34,7 @@ MVP では、以下のような体験を目指しています。
 - PostgreSQL
 - Vitest
 - Playwright
-- Oxlint
+- ESLint
 - Prettier
 - pnpm
 
@@ -68,8 +68,8 @@ pnpm dev
 pnpm dev            # 開発サーバー
 pnpm build          # 本番ビルド
 pnpm start          # 本番ビルドの起動
-pnpm lint           # Oxlint
-pnpm lint:fix       # Oxlint 自動修正
+pnpm lint           # ESLint
+pnpm lint:fix       # ESLint 自動修正
 pnpm format         # Prettier 整形
 pnpm format:check   # Prettier チェック
 pnpm typecheck      # TypeScript 型チェック
