@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import LpHeader from "../../components/features/lp/LpHeader";
-import LpFooter from "../../components/features/lp/LpFooter";
+import LpHeader from "../../../features/lp/components/LpHeader";
+import LpFooter from "../../../features/lp/components/LpFooter";
 
 /**
  * LP専用レイアウト
