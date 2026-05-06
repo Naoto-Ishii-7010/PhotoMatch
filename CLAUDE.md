@@ -89,7 +89,6 @@ photo-match/
 
 - コンポーネントファイル名: `PascalCase.tsx`
 - ディレクトリ名: `kebab-case`
-- import パスエイリアス（`@/`）は使用しない（相対パスを使う）
 - 型定義は `interface` より `type` を基本とする
 - コンポーネントは Server Component を基本とし、Client Component は最小限にとどめる
 - コメントは日本語で細かく書く
