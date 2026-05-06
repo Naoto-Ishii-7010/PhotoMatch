@@ -1,2 +1,1 @@
-export { Prisma, prisma } from "./client";
-export type { Post, User } from "./client";
+export { prisma } from "./client";
