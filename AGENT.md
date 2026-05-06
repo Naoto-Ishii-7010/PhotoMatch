@@ -119,7 +119,7 @@ pnpm code:check # ESLint と Prettier と TypeScript を実行
 
 ## 参照ルール
 
-- ルールは `rules/README.md` に列挙されたファイルを参照すること
+- ルールは `/docs/rules/README.md` に列挙されたファイルを参照すること
 
 ## 仕様書
 

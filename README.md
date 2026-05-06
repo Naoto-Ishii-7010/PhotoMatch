@@ -91,7 +91,7 @@ app/           Next.js App Router のルート
 components/    LP 用の UI コンポーネント
 docs/          サービス仕様、画面仕様、設計メモ
 public/        画像などの静的ファイル
-rules/         プロジェクト内ルールの整理
+docs/rules/    プロジェクト内ルールの整理
 types/         共通型置き場
 ```
 
@@ -102,4 +102,4 @@ README は人向けの入口ドキュメントです。詳細は用途ごとに�
 - サービス全体の要件と業務ルール: [`docs/SPEC.md`](docs/SPEC.md)
 - 画面仕様の全体像: [`docs/spec/ui/SPEC.md`](docs/spec/ui/SPEC.md)
 - デザインメモ: `docs/design/`
-- 開発ルール一覧: [`rules/README.md`](rules/README.md)
+- 開発ルール一覧: [`docs/rules/README.md`](docs/rules/README.md)
