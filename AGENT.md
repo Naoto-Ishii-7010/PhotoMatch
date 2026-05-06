@@ -109,12 +109,13 @@ photo-match/
 ## 開発
 
 ```bash
-pnpm dev      # 開発サーバーを起動
-pnpm build    # 本番用ビルド
-pnpm lint     # ESLint を実行
+pnpm dev        # 開発サーバーを起動
+pnpm build      # 本番用ビルド
+pnpm lint:check # ESLint を実行
+pnpm code:check # ESLint と Prettier と TypeScript を実行
 ```
 
-- コード生成、変更、削除時には、Lint, Format, TypeScriptの型チェックを行うこと
+- コード生成、変更、削除時には、`pnpm code:check` を実行すること
 
 ## 参照ルール
 

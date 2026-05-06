@@ -68,10 +68,12 @@ pnpm dev
 pnpm dev            # 開発サーバー
 pnpm build          # 本番ビルド
 pnpm start          # 本番ビルドの起動
-pnpm lint           # ESLint
+pnpm lint:check     # ESLint チェック
 pnpm lint:fix       # ESLint 自動修正
-pnpm format         # Prettier 整形
 pnpm format:check   # Prettier チェック
+pnpm format:fix     # Prettier 整形
+pnpm code:check     # ESLint + Prettier + TypeScript チェック
+pnpm code:fix       # ESLint + Prettier 自動修正 + TypeScript チェック
 pnpm typecheck      # TypeScript 型チェック
 pnpm test           # Vitest
 pnpm test:watch     # Vitest watch
