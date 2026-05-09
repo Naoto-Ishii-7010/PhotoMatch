@@ -1,5 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { createClient } from "@/lib/supabase/client";
 
 type GoogleSignInButtonProps = {
   children?: ReactNode;
@@ -29,12 +32,32 @@ export default function GoogleSignInButton({
 }: GoogleSignInButtonProps) {
   const variantClassName = variantClassNames[variant];
 
+  const handleSignIn = async () => {
+    try {
+      const supabase = createClient();
+      const next = `${window.location.pathname}${window.location.search}`;
+      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo,
+        },
+      });
+
+      if (error) {
+        console.error("Google sign-in failed", error);
+      }
+    } catch (error) {
+      console.error("Google sign-in failed", error);
+    }
+  };
+
   return (
     <div className={variantClassName.container}>
       <button
         type="button"
-        disabled
-        className={`${baseClassName} ${variantClassName.button} ${className} cursor-not-allowed`.trim()}
+        onClick={handleSignIn}
+        className={`${baseClassName} ${variantClassName.button} ${className}`.trim()}
       >
         <FcGoogle aria-hidden="true" className="h-[18px] w-[18px] shrink-0" />
         <span>{children}</span>
