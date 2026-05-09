@@ -22,9 +22,9 @@
 
 他のすべての作業の前提となる基盤を整える。
 
-- [ ] [インフラ 🔴] Vercel プロジェクト作成・デプロイ設定
-- [ ] [インフラ 🔴] 環境変数の整理（開発/本番分離）と Vercel への登録
-- [ ] [インフラ 🔴] Supabase RLS（Row Level Security）設定
+- [x] [インフラ 🔴] Vercel プロジェクト作成・デプロイ設定
+- [x] [インフラ 🔴] 環境変数の整理（開発/本番分離）と Vercel への登録
+- [x] [インフラ 🔴] Supabase Data API を使わない前提のデータアクセス方針確定（DB は Prisma 経由のみ、anon key 不使用）
 - [ ] [インフラ 🔴] Supabase Storage バケット作成（アバター・ポートフォリオ画像）
 - [ ] [CI/CD 🔴] GitHub Actions CI パイプライン（lint・typecheck・test を PR 時に実行）
 - [ ] [インフラ 🟡] Supabase Pooler（コネクションプール）設定
@@ -60,7 +60,7 @@
 - [ ] [認証 🔴] 管理者ロールの判定実装（`server/permissions/`）
 - [ ] [認証 🔴] 停止済みアカウントのログイン拒否（auth コールバック実装）
 - [ ] [認証 🔴] 停止済みユーザーの既存セッション無効化
-- [ ] [認証 🔴] Supabase RLS ポリシー：各テーブルへの read/write 制限
+- [ ] [認証 🔴] Route Handler / Prisma 経由の read/write 制限実装（DB 直アクセス前提の RLS は採用しない）
 - [ ] [認証 🟡] セッション有効期限（30日）設定確認
 - [ ] [認証 🟡] CSRF / CORS 設定確認
 
@@ -88,7 +88,7 @@
 - [ ] [画像 🔴] Supabase Storage クライアント実装（`server/` 配下）
 - [ ] [画像 🔴] アバター画像アップロード API（10MB 以下・JPEG/PNG/WEBP）
 - [ ] [画像 🔴] ポートフォリオ画像アップロード API
-- [ ] [画像 🔴] ストレージへの不正アクセス防止（署名付き URL または RLS）
+- [ ] [画像 🔴] ストレージへの不正アクセス防止（signed upload URL / signed download URL、portfolio は private bucket）
 - [ ] [画像 🟡] サムネイル生成（Supabase Image Transformation または外部サービス）
 
 ---

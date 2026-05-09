@@ -116,6 +116,8 @@ pnpm code:check # ESLint と Prettier と TypeScript を実行
 
 - コード生成、変更、削除時には、`pnpm code:check` を実行すること
 
+- リリースまでのTODOは `docs/tasks.md` に記載すること。完了したタスクはチェックを入れること。
+
 ## 参照ルール
 
 - ルールは `/docs/rules/README.md` に列挙されたファイルを参照すること

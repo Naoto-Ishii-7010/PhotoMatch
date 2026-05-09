@@ -10,4 +10,5 @@
 ## ルール一覧
 
 - [common-components.md](./common-components.md): 汎用コンポーネントの Props 設計ルール
+- [data-access.md](./data-access.md): DB / Storage / チャット通信の採用方針
 - [icons.md](./icons.md): アイコン利用ルール
