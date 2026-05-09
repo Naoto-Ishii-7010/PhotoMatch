@@ -24,7 +24,7 @@
 
 - [x] [インフラ 🔴] Vercel プロジェクト作成・デプロイ設定
 - [x] [インフラ 🔴] 環境変数の整理（開発/本番分離）と Vercel への登録
-- [x] [インフラ 🔴] Supabase Data API を使わない前提のデータアクセス方針確定（DB は Prisma 経由のみ、anon key 不使用）
+- [x] [インフラ 🔴] Supabase Data API を使わない前提のデータアクセス方針確定（DB は Prisma 経由、anon key 不使用、exposed schema は RLS 必須）
 - [ ] [インフラ 🔴] Supabase Storage バケット作成（アバター・ポートフォリオ画像）
 - [ ] [CI/CD 🔴] GitHub Actions CI パイプライン（lint・typecheck・test を PR 時に実行）
 - [ ] [インフラ 🟡] Supabase Pooler（コネクションプール）設定
@@ -48,6 +48,8 @@
 - [ ] [DB 🔴] `Report` モデル追加（通報対象種別・理由・対応状況）
 - [ ] [DB 🔴] `AuditLog` モデル追加（管理操作の監査ログ）
 - [ ] [DB 🔴] 管理者ロール追加（`User` への `role` フィールド、または `AdminUser` モデル）
+- [ ] [DB 🔴] exposed schema の全アプリテーブルで RLS を有効化
+- [ ] [DB 🔴] 各テーブルの RLS policy 定義（`anon` / `authenticated` / `service_role` / 管理者のアクセス可否整理を含む）
 - [ ] [DB 🔴] Prisma マイグレーション（dev/prod）実行
 
 ---
@@ -60,7 +62,7 @@
 - [ ] [認証 🔴] 管理者ロールの判定実装（`server/permissions/`）
 - [ ] [認証 🔴] 停止済みアカウントのログイン拒否（auth コールバック実装）
 - [ ] [認証 🔴] 停止済みユーザーの既存セッション無効化
-- [ ] [認証 🔴] Server Component / DAL / Server Action 経由の read/write 制限実装（DB 直アクセス前提の RLS は採用しない）
+- [ ] [認証 🔴] Server Component / DAL / Server Action 経由の read/write 制限実装（アプリ層認可を主としつつ、Supabase RLS も防御層として併用する）
 - [ ] [認証 🟡] セッション有効期限（30日）設定確認
 - [ ] [認証 🟡] CSRF / CORS 設定確認
 
@@ -183,11 +185,11 @@
 
 ## Step 14: チャット
 
-マッチ成立後の 1 対 1 コミュニケーション。リアルタイム実装を含む。
+マッチ成立後の 1 対 1 コミュニケーション。準リアルタイム実装を含む。
 
 - [ ] [チャット 🔴] チャットルーム自動生成（マッチ成立時）
 - [ ] [チャット 🔴] メッセージ送信 Server Action
-- [ ] [チャット 🔴] Supabase Realtime によるリアルタイム受信
+- [ ] [チャット 🔴] ポーリングによる準リアルタイム受信
 - [ ] [チャット 🔴] 既読管理 Server Action
 - [ ] [チャット 🔴] 完了操作 Server Action（`完了待ち` → `完了`）
 - [ ] [チャット 🔴] 7日後自動完了バッチ / Cron ジョブ
@@ -255,6 +257,8 @@
 - [ ] [確認 🔴] 停止ユーザーが各種機能を利用できないことの確認
 - [ ] [確認 🔴] 未ログインユーザーが認証必須の Server Action / Route Handler を実行できないことの確認
 - [ ] [確認 🔴] 管理者ロール以外が管理系 Server Action / Route Handler を実行できないことの確認
+- [ ] [確認 🔴] exposed schema の全アプリテーブルで RLS が有効化されていること
+- [ ] [確認 🔴] RLS policy により `anon` / `authenticated` / `service_role` の想定外アクセスが許可されていないこと
 - [ ] [確認 🔴] 画像アップロードの上限・形式チェックが機能していること
 - [ ] [確認 🔴] 本番環境変数がすべて Vercel に登録されていること
 - [ ] [確認 🔴] `pnpm build` がエラーなく完了すること
