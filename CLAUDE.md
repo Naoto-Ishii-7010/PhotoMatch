@@ -13,7 +13,7 @@
 - スタイリング: Tailwind CSS
 - アイコン: ReactIcons
 - バリデーション: zod
-- 認証: Auth.js
+- 認証: 未実装（Supabase Auth へ移行予定）
 - ORM: Prisma
 - データベース: PostgreSQL
 - テスト (Unit/Integration): Vitest

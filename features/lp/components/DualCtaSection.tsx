@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 /**
  * DualCtaセクション
  * - ゲストとホストの両方へのCTA
@@ -51,12 +49,13 @@ export default function DualCtaSection() {
                 満足できなければ返金保証あり
               </li>
             </ul>
-            <Link
-              href="/auth/register?role=requester"
+            <button
+              type="button"
+              disabled
               className="inline-flex items-center justify-center w-full px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-guest shadow-[0_8px_20px_rgba(45,107,99,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
             >
               無料で依頼を投稿する →
-            </Link>
+            </button>
           </div>
 
           {/* ホストカード */}
@@ -84,12 +83,13 @@ export default function DualCtaSection() {
                 審査は簡単・本人確認のみ
               </li>
             </ul>
-            <Link
-              href="/auth/register?role=photographer"
+            <button
+              type="button"
+              disabled
               className="inline-flex items-center justify-center w-full px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-host shadow-[0_8px_20px_rgba(196,122,46,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
             >
               無料でホスト登録する →
-            </Link>
+            </button>
           </div>
         </div>
       </div>

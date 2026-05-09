@@ -10,7 +10,7 @@
 
 - [x] ドキュメント整備（全体仕様・機能仕様・画面仕様・デザイン仕様）
 - [x] 技術選定・パッケージインストール
-- [x] Auth.js + Prisma + Supabase 連携（Google ログイン → User 作成）
+- [x] Supabase プロジェクト接続準備（Prisma 接続・MCP/Skills 設定）
 - [x] Skills / MCP 設定
 - [x] LP 実装
 - [x] ESLint / Prettier 設定
@@ -34,7 +34,7 @@
 
 ## Step 2: DB スキーマ設計・マイグレーション
 
-現状は Auth.js 用の `User / Account / Session` のみ。以下を追加する。
+現状は認証関連の Prisma ドメインモデルを未定義とし、以下を追加する。
 
 - [ ] [DB 🔴] `Profile` モデル追加（表示名・アバター・自己紹介・活動エリア・ジャンル）
 - [ ] [DB 🔴] `Portfolio` モデル追加（作品画像・タイトル・説明・公開フラグ）
