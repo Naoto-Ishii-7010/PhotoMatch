@@ -11,6 +11,7 @@
 - [x] ドキュメント整備（全体仕様・機能仕様・画面仕様・デザイン仕様）
 - [x] 技術選定・パッケージインストール
 - [x] Supabase プロジェクト接続準備（Prisma 接続・MCP/Skills 設定）
+- [x] Supabase Auth 設定（Google認証）
 - [x] Skills / MCP 設定
 - [x] LP 実装
 - [x] ESLint / Prettier 設定
@@ -25,7 +26,7 @@
 - [x] [インフラ 🔴] Vercel プロジェクト作成・デプロイ設定
 - [x] [インフラ 🔴] 環境変数の整理（開発/本番分離）と Vercel への登録
 - [x] [インフラ 🔴] Supabase Data API を使わない前提のデータアクセス方針確定（DB は Prisma 経由、anon key 不使用、exposed schema は RLS 必須）
-- [ ] [インフラ 🔴] Supabase Storage バケット作成（アバター・ポートフォリオ画像）
+- [x] [インフラ 🔴] Supabase Storage バケット作成とRLS設定（アバター・ポートフォリオ画像）
 - [ ] [CI/CD 🔴] GitHub Actions CI パイプライン（lint・typecheck・test を PR 時に実行）
 - [ ] [インフラ 🟡] Supabase Pooler（コネクションプール）設定
 - [ ] [インフラ 🟡] カスタムドメイン設定
