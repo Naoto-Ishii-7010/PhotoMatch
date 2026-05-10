@@ -9,5 +9,466 @@ generator client {
 }
 
 datasource db {
- provider = "postgresql"
+  provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum Genre {
+  PORTRAIT
+  FAMILY_ANNIVERSARY
+  WEDDING
+  CEREMONY
+  SPORTS_ACTION
+  PET
+  LANDSCAPE_NATURE
+  ARCHITECTURE_INTERIOR
+  FOOD_PRODUCT
+  EVENT_PARTY
+  OTHER
+}
+
+enum Prefecture {
+  HOKKAIDO
+  AOMORI
+  IWATE
+  MIYAGI
+  AKITA
+  YAMAGATA
+  FUKUSHIMA
+  IBARAKI
+  TOCHIGI
+  GUNMA
+  SAITAMA
+  CHIBA
+  TOKYO
+  KANAGAWA
+  NIIGATA
+  TOYAMA
+  ISHIKAWA
+  FUKUI
+  YAMANASHI
+  NAGANO
+  GIFU
+  SHIZUOKA
+  AICHI
+  MIE
+  SHIGA
+  KYOTO
+  OSAKA
+  HYOGO
+  NARA
+  WAKAYAMA
+  TOTTORI
+  SHIMANE
+  OKAYAMA
+  HIROSHIMA
+  YAMAGUCHI
+  TOKUSHIMA
+  KAGAWA
+  EHIME
+  KOCHI
+  FUKUOKA
+  SAGA
+  NAGASAKI
+  KUMAMOTO
+  OITA
+  MIYAZAKI
+  KAGOSHIMA
+  OKINAWA
+}
+
+enum PortfolioVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum DirectRequestStatus {
+  PENDING
+  MATCHED
+  IN_PROGRESS
+  COMPLETION_PENDING
+  COMPLETED
+  CANCELED
+}
+
+enum DirectRequestCancelReason {
+  PHOTOGRAPHER_DECLINED
+  APPROVAL_EXPIRED
+  REQUESTER_CANCELED
+  PHOTOGRAPHER_CANCELED
+  ADMIN_CANCELED
+}
+
+enum OpenRequestStatus {
+  OPEN
+  PROPOSAL_RECEIVED
+  MATCHED
+  IN_PROGRESS
+  COMPLETION_PENDING
+  COMPLETED
+  CANCELED
+}
+
+enum OpenRequestCancelReason {
+  NO_SELECTION_EXPIRED
+  NO_PROPOSALS
+  REQUESTER_CANCELED
+  PHOTOGRAPHER_CANCELED
+  ADMIN_CANCELED
+}
+
+enum ProposalStatus {
+  SUBMITTED
+  WITHDRAWN
+  ACCEPTED
+  REJECTED
+  CANCELED
+}
+
+enum MessageType {
+  USER
+  SYSTEM
+}
+
+enum NotificationType {
+  DIRECT_REQUEST_RECEIVED
+  DIRECT_REQUEST_ACCEPTED
+  DIRECT_REQUEST_DECLINED
+  DIRECT_REQUEST_EXPIRED
+  OPEN_REQUEST_PROPOSAL_RECEIVED
+  PROPOSAL_ACCEPTED
+  PROPOSAL_REJECTED
+  OPEN_REQUEST_CLOSED
+  MESSAGE_RECEIVED
+  JOB_COMPLETION_PENDING
+  JOB_COMPLETED
+  JOB_CANCELED
+  FOLLOW_RECEIVED
+  ACCOUNT_SUSPENDED
+}
+
+enum NotificationTargetType {
+  DIRECT_REQUEST
+  OPEN_REQUEST
+  CHAT_ROOM
+  USER
+  SYSTEM
+}
+
+enum ReportTargetType {
+  USER
+  DIRECT_REQUEST
+  OPEN_REQUEST
+  MESSAGE
+}
+
+enum ReportReason {
+  SPAM
+  INAPPROPRIATE_CONTENT
+  OFF_PLATFORM_CONTACT
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum ReportResolutionType {
+  NO_ACTION
+  WARNED
+  USER_SUSPENDED
+  REQUEST_CANCELED
+}
+
+enum AdminActionType {
+  USER_SUSPEND
+  USER_RESTORE
+  REPORT_RESOLVE
+  REPORT_DISMISS
+  REQUEST_CANCEL
+}
+
+model User {
+  id                 String      @id @db.Uuid
+  email              String      @unique
+  displayName        String?
+  avatarUrl          String?
+  bio                String?
+  activityPrefecture Prefecture?
+  activityCity       String?
+  genres             Genre[]     @default([])
+  role               UserRole    @default(USER)
+  status             UserStatus  @default(ACTIVE)
+  termsAcceptedAt    DateTime?
+  privacyAcceptedAt  DateTime?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  portfolios              Portfolio[]
+  sentDirectRequests      DirectRequest[] @relation("DirectRequestRequester")
+  receivedDirectRequests  DirectRequest[] @relation("DirectRequestPhotographer")
+  openRequests            OpenRequest[]   @relation("OpenRequestRequester")
+  matchedOpenRequests     OpenRequest[]   @relation("OpenRequestMatchedPhotographer")
+  proposals               Proposal[]      @relation("ProposalPhotographer")
+  chatRoomsAsRequester    ChatRoom[]      @relation("ChatRoomRequester")
+  chatRoomsAsPhotographer ChatRoom[]      @relation("ChatRoomPhotographer")
+  messages                Message[]       @relation("MessageSender")
+  following               Follow[]        @relation("FollowFollower")
+  followers               Follow[]        @relation("FollowFollowee")
+  notifications           Notification[]  @relation("NotificationRecipient")
+  notificationActors      Notification[]  @relation("NotificationActor")
+  reportsSubmitted        Report[]        @relation("ReportReporter")
+  reportsResolved         Report[]        @relation("ReportResolvedByAdmin")
+  reportsTargetingUser    Report[]        @relation("ReportTargetUser")
+  auditLogsAsActor        AuditLog[]      @relation("AuditLogActor")
+  auditLogsTargetingUser  AuditLog[]      @relation("AuditLogTargetUser")
+
+  @@index([role])
+  @@index([status])
+  @@index([activityPrefecture])
+}
+
+model Portfolio {
+  id          String              @id @default(uuid()) @db.Uuid
+  userId      String              @db.Uuid
+  imagePath   String
+  title       String
+  description String?
+  genre       Genre
+  tags        String[]            @default([])
+  visibility  PortfolioVisibility @default(PRIVATE)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, visibility])
+  @@index([genre, visibility])
+  @@index([updatedAt])
+}
+
+model DirectRequest {
+  id                                  String                     @id @default(uuid()) @db.Uuid
+  requesterId                         String                     @db.Uuid
+  photographerId                      String                     @db.Uuid
+  genre                               Genre
+  preferredDate                       DateTime
+  prefecture                          Prefecture
+  city                                String
+  budgetYen                           Int
+  note                                String?
+  status                              DirectRequestStatus        @default(PENDING)
+  cancelReason                        DirectRequestCancelReason?
+  approvalDeadlineAt                  DateTime
+  matchedAt                           DateTime?
+  startedAt                           DateTime?
+  completionRequestedByRequesterAt    DateTime?
+  completionRequestedByPhotographerAt DateTime?
+  completedAt                         DateTime?
+  canceledAt                          DateTime?
+  createdAt                           DateTime                   @default(now())
+  updatedAt                           DateTime                   @updatedAt
+
+  requester      User       @relation("DirectRequestRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  photographer   User       @relation("DirectRequestPhotographer", fields: [photographerId], references: [id], onDelete: Cascade)
+  chatRoom       ChatRoom?
+  relatedReports Report[]   @relation("ReportTargetDirectRequest")
+  auditLogs      AuditLog[] @relation("AuditLogTargetDirectRequest")
+
+  @@index([requesterId, status])
+  @@index([photographerId, status])
+  @@index([status, approvalDeadlineAt])
+}
+
+model OpenRequest {
+  id                                  String                   @id @default(uuid()) @db.Uuid
+  requesterId                         String                   @db.Uuid
+  matchedProposalId                   String?                  @unique @db.Uuid
+  matchedPhotographerId               String?                  @db.Uuid
+  genre                               Genre
+  preferredDate                       DateTime
+  prefecture                          Prefecture
+  city                                String
+  budgetYen                           Int
+  note                                String?
+  applicationDeadlineAt               DateTime
+  status                              OpenRequestStatus        @default(OPEN)
+  cancelReason                        OpenRequestCancelReason?
+  matchedAt                           DateTime?
+  startedAt                           DateTime?
+  completionRequestedByRequesterAt    DateTime?
+  completionRequestedByPhotographerAt DateTime?
+  completedAt                         DateTime?
+  canceledAt                          DateTime?
+  createdAt                           DateTime                 @default(now())
+  updatedAt                           DateTime                 @updatedAt
+
+  requester           User       @relation("OpenRequestRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  matchedPhotographer User?      @relation("OpenRequestMatchedPhotographer", fields: [matchedPhotographerId], references: [id], onDelete: SetNull)
+  matchedProposal     Proposal?  @relation("OpenRequestMatchedProposal", fields: [matchedProposalId], references: [id], onDelete: SetNull)
+  proposals           Proposal[] @relation("ProposalOpenRequest")
+  chatRoom            ChatRoom?
+  relatedReports      Report[]   @relation("ReportTargetOpenRequest")
+  auditLogs           AuditLog[] @relation("AuditLogTargetOpenRequest")
+
+  @@index([requesterId, status])
+  @@index([matchedPhotographerId])
+  @@index([status, applicationDeadlineAt])
+  @@index([prefecture, applicationDeadlineAt])
+}
+
+model Proposal {
+  id             String         @id @default(uuid()) @db.Uuid
+  openRequestId  String         @db.Uuid
+  photographerId String         @db.Uuid
+  priceYen       Int
+  message        String
+  status         ProposalStatus @default(SUBMITTED)
+  withdrawnAt    DateTime?
+  acceptedAt     DateTime?
+  rejectedAt     DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  openRequest          OpenRequest  @relation("ProposalOpenRequest", fields: [openRequestId], references: [id], onDelete: Cascade)
+  photographer         User         @relation("ProposalPhotographer", fields: [photographerId], references: [id], onDelete: Cascade)
+  matchedByOpenRequest OpenRequest? @relation("OpenRequestMatchedProposal")
+
+  @@unique([openRequestId, photographerId])
+  @@index([photographerId, status])
+  @@index([openRequestId, status])
+}
+
+model ChatRoom {
+  id              String   @id @default(uuid()) @db.Uuid
+  requesterId     String   @db.Uuid
+  photographerId  String   @db.Uuid
+  directRequestId String?  @unique @db.Uuid
+  openRequestId   String?  @unique @db.Uuid
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  requester     User           @relation("ChatRoomRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  photographer  User           @relation("ChatRoomPhotographer", fields: [photographerId], references: [id], onDelete: Cascade)
+  directRequest DirectRequest? @relation(fields: [directRequestId], references: [id], onDelete: Cascade)
+  openRequest   OpenRequest?   @relation(fields: [openRequestId], references: [id], onDelete: Cascade)
+  messages      Message[]
+  auditLogs     AuditLog[]     @relation("AuditLogTargetChatRoom")
+
+  @@index([requesterId])
+  @@index([photographerId])
+}
+
+model Message {
+  id         String      @id @default(uuid()) @db.Uuid
+  chatRoomId String      @db.Uuid
+  senderId   String?     @db.Uuid
+  type       MessageType @default(USER)
+  body       String
+  readAt     DateTime?
+  createdAt  DateTime    @default(now())
+
+  chatRoom       ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  sender         User?    @relation("MessageSender", fields: [senderId], references: [id], onDelete: SetNull)
+  relatedReports Report[] @relation("ReportTargetMessage")
+
+  @@index([chatRoomId, createdAt])
+  @@index([senderId, createdAt])
+}
+
+model Follow {
+  followerId String   @db.Uuid
+  followeeId String   @db.Uuid
+  createdAt  DateTime @default(now())
+
+  follower User @relation("FollowFollower", fields: [followerId], references: [id], onDelete: Cascade)
+  followee User @relation("FollowFollowee", fields: [followeeId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followeeId])
+  @@index([followeeId, createdAt])
+}
+
+model Notification {
+  id          String                 @id @default(uuid()) @db.Uuid
+  userId      String                 @db.Uuid
+  actorUserId String?                @db.Uuid
+  type        NotificationType
+  targetType  NotificationTargetType
+  targetId    String?                @db.Uuid
+  linkPath    String
+  readAt      DateTime?
+  createdAt   DateTime               @default(now())
+
+  user      User  @relation("NotificationRecipient", fields: [userId], references: [id], onDelete: Cascade)
+  actorUser User? @relation("NotificationActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([userId, readAt, createdAt])
+  @@index([targetType, targetId])
+}
+
+model Report {
+  id                      String                @id @default(uuid()) @db.Uuid
+  reporterId              String                @db.Uuid
+  targetType              ReportTargetType
+  reason                  ReportReason
+  comment                 String?
+  status                  ReportStatus          @default(OPEN)
+  resolutionType          ReportResolutionType?
+  resolutionNote          String?
+  resolvedByAdminId       String?               @db.Uuid
+  resolvedAt              DateTime?
+  reportedUserId          String?               @db.Uuid
+  reportedDirectRequestId String?               @db.Uuid
+  reportedOpenRequestId   String?               @db.Uuid
+  reportedMessageId       String?               @db.Uuid
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+
+  reporter              User           @relation("ReportReporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  resolvedByAdmin       User?          @relation("ReportResolvedByAdmin", fields: [resolvedByAdminId], references: [id], onDelete: SetNull)
+  reportedUser          User?          @relation("ReportTargetUser", fields: [reportedUserId], references: [id], onDelete: SetNull)
+  reportedDirectRequest DirectRequest? @relation("ReportTargetDirectRequest", fields: [reportedDirectRequestId], references: [id], onDelete: SetNull)
+  reportedOpenRequest   OpenRequest?   @relation("ReportTargetOpenRequest", fields: [reportedOpenRequestId], references: [id], onDelete: SetNull)
+  reportedMessage       Message?       @relation("ReportTargetMessage", fields: [reportedMessageId], references: [id], onDelete: SetNull)
+  auditLogs             AuditLog[]     @relation("AuditLogTargetReport")
+
+  @@index([status, createdAt])
+  @@index([reporterId, createdAt])
+  @@index([targetType])
+}
+
+model AuditLog {
+  id                    String          @id @default(uuid()) @db.Uuid
+  actorAdminId          String          @db.Uuid
+  actionType            AdminActionType
+  reason                String?
+  metadata              Json
+  targetUserId          String?         @db.Uuid
+  targetReportId        String?         @db.Uuid
+  targetDirectRequestId String?         @db.Uuid
+  targetOpenRequestId   String?         @db.Uuid
+  targetChatRoomId      String?         @db.Uuid
+  createdAt             DateTime        @default(now())
+
+  actorAdmin          User           @relation("AuditLogActor", fields: [actorAdminId], references: [id], onDelete: Cascade)
+  targetUser          User?          @relation("AuditLogTargetUser", fields: [targetUserId], references: [id], onDelete: SetNull)
+  targetReport        Report?        @relation("AuditLogTargetReport", fields: [targetReportId], references: [id], onDelete: SetNull)
+  targetDirectRequest DirectRequest? @relation("AuditLogTargetDirectRequest", fields: [targetDirectRequestId], references: [id], onDelete: SetNull)
+  targetOpenRequest   OpenRequest?   @relation("AuditLogTargetOpenRequest", fields: [targetOpenRequestId], references: [id], onDelete: SetNull)
+  targetChatRoom      ChatRoom?      @relation("AuditLogTargetChatRoom", fields: [targetChatRoomId], references: [id], onDelete: SetNull)
+
+  @@index([actorAdminId, createdAt])
+  @@index([actionType, createdAt])
 }
