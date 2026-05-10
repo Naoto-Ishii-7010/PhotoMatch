@@ -16,7 +16,8 @@ const sizeClassNames = {
 } as const;
 
 const variantClassNames = {
-  light: "bg-white text-slate-950 hover:bg-amber-100 focus-visible:ring-slate-400",
+  light:
+    "bg-white text-slate-950 hover:bg-amber-100 focus-visible:ring-slate-400",
   dark: "bg-slate-950 text-white hover:bg-slate-800 focus-visible:ring-slate-500",
 } as const;
 
