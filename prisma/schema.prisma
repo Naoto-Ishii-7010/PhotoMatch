@@ -9,5 +9,29 @@ generator client {
 }
 
 datasource db {
- provider = "postgresql"
+  provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+model User {
+  id          String     @id @db.Uuid
+  email       String     @unique
+  displayName String?
+  avatarUrl   String?
+  role        UserRole   @default(USER)
+  status      UserStatus @default(ACTIVE)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([role])
+  @@index([status])
 }
