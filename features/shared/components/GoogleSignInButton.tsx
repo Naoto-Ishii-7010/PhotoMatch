@@ -1,12 +1,12 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "../../../auth";
+import { createClient } from "@/lib/supabase/client";
 
 type GoogleSignInButtonProps = {
-  callbackUrl?: string;
   children?: ReactNode;
   className?: string;
-  disabled?: boolean;
   variant?: "default" | "lpHeader";
 };
 
@@ -15,45 +15,53 @@ const baseClassName =
 
 const variantClassNames = {
   default: {
-    form: "w-full",
+    container: "w-full",
     button: "",
   },
   lpHeader: {
-    form: "w-auto",
+    container: "w-auto",
     button:
       "w-auto rounded-full border-[1.5px] border-lp-ink bg-transparent px-5 py-2.5 text-[13px] font-bold text-lp-ink shadow-none hover:translate-y-0 hover:bg-lp-ink hover:text-white hover:shadow-none focus-visible:ring-lp-ink/40",
   },
 } as const;
 
 export default function GoogleSignInButton({
-  callbackUrl,
   children = "Googleでサインイン",
   className = "",
-  disabled = false,
   variant = "default",
 }: GoogleSignInButtonProps) {
   const variantClassName = variantClassNames[variant];
 
-  return (
-    <form
-      action={async () => {
-        "use server";
+  const handleSignIn = async () => {
+    try {
+      const supabase = createClient();
+      const next = `${window.location.pathname}${window.location.search}`;
+      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo,
+        },
+      });
 
-        await signIn(
-          "google",
-          callbackUrl ? { redirectTo: callbackUrl } : undefined,
-        );
-      }}
-      className={variantClassName.form}
-    >
+      if (error) {
+        console.error("Google sign-in failed", error);
+      }
+    } catch (error) {
+      console.error("Google sign-in failed", error);
+    }
+  };
+
+  return (
+    <div className={variantClassName.container}>
       <button
-        type="submit"
-        disabled={disabled}
+        type="button"
+        onClick={handleSignIn}
         className={`${baseClassName} ${variantClassName.button} ${className}`.trim()}
       >
         <FcGoogle aria-hidden="true" className="h-[18px] w-[18px] shrink-0" />
         <span>{children}</span>
       </button>
-    </form>
+    </div>
   );
 }

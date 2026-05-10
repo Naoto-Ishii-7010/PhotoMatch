@@ -54,12 +54,13 @@ export default function LpHeader() {
               Googleでログイン
             </GoogleSignInButton>
           </div>
-          <Link
-            href="/auth/register"
+          <button
+            type="button"
+            disabled
             className="inline-flex items-center justify-center px-[30px] py-2.5 rounded-full text-[15px] font-bold text-white bg-lp-accent shadow-[0_8px_20px_rgba(216,92,58,0.35)] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(216,92,58,0.45)] transition-all duration-200"
           >
             無料ではじめる
-          </Link>
+          </button>
         </div>
       </div>
     </header>

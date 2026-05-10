@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 /**
  * Heroセクション
  * - メインキャッチコピー・背景画像・CTA・統計情報を配置
@@ -73,18 +71,20 @@ export default function HeroSection() {
 
         {/* CTA */}
         <div className="flex flex-wrap gap-3 mb-12">
-          <Link
-            href="/auth/register?role=requester"
+          <button
+            type="button"
+            disabled
             className="inline-flex items-center justify-center gap-2.5 px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-guest shadow-[0_8px_20px_rgba(45,107,99,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
           >
             撮ってほしい方はこちら →
-          </Link>
-          <Link
-            href="/auth/register?role=photographer"
+          </button>
+          <button
+            type="button"
+            disabled
             className="inline-flex items-center justify-center gap-2.5 px-[30px] py-4 rounded-full text-[15px] font-bold text-white bg-lp-host shadow-[0_8px_20px_rgba(196,122,46,0.3)] hover:-translate-y-0.5 hover:brightness-105 transition-all duration-200"
           >
             撮りたい方はこちら →
-          </Link>
+          </button>
         </div>
 
         {/* 統計 */}

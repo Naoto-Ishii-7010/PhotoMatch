@@ -29,7 +29,6 @@ MVP では、以下のような体験を目指しています。
 - TypeScript
 - Tailwind CSS 4
 - Zod
-- Auth.js / NextAuth.js
 - Prisma
 - PostgreSQL
 - Vitest
