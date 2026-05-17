@@ -55,7 +55,6 @@
 - [ ] [DB 🟡] 検索掲載条件と一覧取得を支える index / unique 制約の見直し
 - [ ] [DB 🔴] exposed schema の全アプリテーブルで RLS を有効化
 - [ ] [DB 🔴] 各テーブルの RLS policy 定義（`anon` / `authenticated` / `service_role` / 管理者のアクセス可否整理を含む）
-- [ ] [DB 🔴] Prisma マイグレーション（dev/prod）実行
 
 ---
 
@@ -63,7 +62,7 @@
 
 機能実装の前に、アクセス制御の共通基盤を整える。
 
-- [ ] [認証 🔴] Server Action / Route Handler 共通の認証チェック・ロール確認ヘルパー実装（`server/auth/`）
+- [x] [認証 🔴] Server Action / Route Handler 共通の認証チェック・ロール確認ヘルパー実装（`server/auth/`）
 - [ ] [認証 🔴] 管理者ロールの判定実装（`server/permissions/`）
 - [ ] [認証 🔴] 停止済みアカウントのログイン拒否（auth コールバック実装）
 - [ ] [認証 🔴] 停止済みユーザーの既存セッション無効化

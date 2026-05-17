@@ -24,6 +24,8 @@ export default defineConfig({
     alias: {
       // Next.js / TypeScript と同じ @/ エイリアスを Vitest でも解決する
       "@": path.resolve(__dirname, "."),
+      // Next.js の server-only は Vitest では解決できないため、テスト時は空スタブに差し替える
+      "server-only": path.resolve(__dirname, "tests/stubs/server-only.ts"),
     },
   },
 });

@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { SuspendedAccountError, assertUserIsActive } from "@/server/auth";
 import { syncAuthUser } from "@/server/auth/sync-auth-user";
 import { NextResponse } from "next/server";
 
@@ -28,12 +29,12 @@ export async function GET(request: Request) {
 
         const appUser = await syncAuthUser(data.user);
 
-        if (appUser.status === "SUSPENDED") {
+        assertUserIsActive(appUser);
+      } catch (error) {
+        if (error instanceof SuspendedAccountError) {
           await supabase.auth.signOut();
-
-          return NextResponse.redirect(`${origin}/auth/auth-code-error`);
         }
-      } catch {
+
         return NextResponse.redirect(`${origin}/auth/auth-code-error`);
       }
 
