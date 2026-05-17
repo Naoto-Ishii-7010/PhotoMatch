@@ -51,7 +51,7 @@
 - [x] [DB 🔴] `AuditLog` モデル追加（管理操作の監査ログ）
 - [x] [DB 🔴] 管理者ロール追加（`User` への `role` フィールド、または `AdminUser` モデル）
 - [x] [DB 🔴] 共通 enum 追加（ジャンル・都道府県・案件状態・通知種別）
-- [ ] [DB 🔴] Prisma で表現できない DB 制約を SQL migration で追加（自己フォロー禁止・案件重複防止・対象排他制約など）
+- [x] [DB 🔴] Prisma で表現できない DB 制約を SQL migration で追加（自己フォロー禁止・案件重複防止・対象排他制約など）
 - [ ] [DB 🟡] 検索掲載条件と一覧取得を支える index / unique 制約の見直し
 - [ ] [DB 🔴] exposed schema の全アプリテーブルで RLS を有効化
 - [ ] [DB 🔴] 各テーブルの RLS policy 定義（`anon` / `authenticated` / `service_role` / 管理者のアクセス可否整理を含む）
