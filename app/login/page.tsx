@@ -1,15 +1,15 @@
-import HeroSection from "../../../features/lp/components/HeroSection";
-import WhatIsSection from "../../../features/lp/components/WhatIsSection";
-import StoriesSection from "../../../features/lp/components/StoriesSection";
-import YouDecideSection from "../../../features/lp/components/YouDecideSection";
-import UseCasesSection from "../../../features/lp/components/UseCasesSection";
-import HostsSection from "../../../features/lp/components/HostsSection";
-import PriceMechanismSection from "../../../features/lp/components/PriceMechanismSection";
-import SafetySection from "../../../features/lp/components/SafetySection";
-import DualCtaSection from "../../../features/lp/components/DualCtaSection";
-import StepsSection from "../../../features/lp/components/StepsSection";
-import FaqSection from "../../../features/lp/components/FaqSection";
-import FinalCtaSection from "../../../features/lp/components/FinalCtaSection";
+import HeroSection from "../../features/lp/components/HeroSection";
+import WhatIsSection from "../../features/lp/components/WhatIsSection";
+import StoriesSection from "../../features/lp/components/StoriesSection";
+import YouDecideSection from "../../features/lp/components/YouDecideSection";
+import UseCasesSection from "../../features/lp/components/UseCasesSection";
+import HostsSection from "../../features/lp/components/HostsSection";
+import PriceMechanismSection from "../../features/lp/components/PriceMechanismSection";
+import SafetySection from "../../features/lp/components/SafetySection";
+import DualCtaSection from "../../features/lp/components/DualCtaSection";
+import StepsSection from "../../features/lp/components/StepsSection";
+import FaqSection from "../../features/lp/components/FaqSection";
+import FinalCtaSection from "../../features/lp/components/FinalCtaSection";
 
 /**
  * LPメインページ（/lp）

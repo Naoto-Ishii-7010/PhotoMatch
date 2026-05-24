@@ -13,7 +13,7 @@
 - スタイリング: Tailwind CSS
 - アイコン: ReactIcons
 - バリデーション: zod
-- 認証: Auth.js
+- 認証: 未実装（Supabase Auth へ移行予定）
 - ORM: Prisma
 - データベース: PostgreSQL
 - テスト (Unit/Integration): Vitest
@@ -39,7 +39,7 @@ photo-match/
   │   ├── (member)/                     # ログイン後ユーザー向けルートグループ
   │   ├── (admin)/                      # 管理者向けルートグループ
   │   │
-  │   ├── api/                          # Route Handler のみを置く
+  │   ├── api/                          # OAuth callback / webhook / 外部向け API など、Route Handler が必要なもののみ
   │   │   └── ...
   │   │
   │   ├── not-found.tsx                 # 404 ページ
@@ -50,7 +50,7 @@ photo-match/
   │   ├── some-feature/
   │   │   ├── components/               # その機能専用の UI コンポーネント
   │   │   ├── hooks/                    # その機能専用の hook
-  │   │   ├── api-client/               # Route Handler を呼び出す関数
+  │   │   ├── actions/                  # Client Component から使う Server Actions（認証開始など一部例外あり）
   │   │   ├── schemas.ts                # Zod スキーマ
   │   │   ├── types.ts                  # その機能内で使う型
   │   │   ├── constants.ts              # その機能内の定数
@@ -96,13 +96,15 @@ photo-match/
 ## 禁止事項
 
 - `any` 型を使わない
-- 将来的なネイティブアプリ化も踏まえ、Server Actionsは使用せず、Route Handler（API Routes）を使用してクライアントとサーバーの境界を明確にすること。
-- Route Handler では必ず認証チェックとロール確認を行う
+- Server Component のデータ取得は DAL / repository を経由し、その内部で Prisma にアクセスすること。
+- Client Component からの更新処理は Server Actions を起点に実装すること。ただし認証開始など外部認証 SDK の都合がある処理は例外とする。
+- Route Handler（API Routes）は OAuth callback / webhook / 外部クライアント向け API など、HTTP エンドポイントが必要な場合に限定して使用すること。
+- Server Action / Route Handler では必ず認証チェックとロール確認を行う
 - 更新処理を行う際は、必ずフロントエンド・バックエンド両方でバリデーションを行う。
 
 ## テスト方針
 
-- **Vitest（Unit/Integration）**: ビジネスロジック・Route Handler・バリデーション等の重要機能のみ
+- **Vitest（Unit/Integration）**: ビジネスロジック・Server Action / Route Handler・バリデーション等の重要機能のみ
 - **Playwright（E2E）**: 主要なユーザーフロー（登録・ログイン・予約確定等）の重要機能のみ。e2eは開発者から依頼がない限りは実装しなくて良い。
 
 ## 開発
@@ -115,6 +117,8 @@ pnpm code:check # ESLint と Prettier と TypeScript を実行
 ```
 
 - コード生成、変更、削除時には、`pnpm code:check` を実行すること
+
+- リリースまでのTODOは `docs/tasks.md` に記載すること。完了したタスクはチェックを入れること。
 
 ## 参照ルール
 
