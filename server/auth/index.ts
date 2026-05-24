@@ -10,3 +10,4 @@ export {
   AuthorizationError,
   SuspendedAccountError,
 } from "./errors";
+export { revokeAllSessions, restoreSession } from "./session-admin";
