@@ -5,12 +5,12 @@ import Textarea from "@/components/ui/Textarea";
 import PhotoCardDemo from "./_components/PhotoCardDemo";
 import FormInputDemo from "./_components/FormInputDemo";
 import TextareaDemo from "./_components/TextareaDemo";
+import ModalDemo from "./_components/ModalDemo";
 
 export const metadata: Metadata = {
   title: "共通コンポーネント | PhotoMatch",
 };
 
-// セクションとバリアントのラベル表示用
 function Section({
   title,
   children,
@@ -47,7 +47,6 @@ function VariantGroup({
   );
 }
 
-// サンプル写真URL（Unsplash）
 const SAMPLE_PHOTOS = [
   {
     imageUrl:
@@ -97,7 +96,6 @@ export default function CommonComponentsPage() {
             1. Button
         ============================================================ */}
         <Section title="Button">
-          {/* Primary */}
           <VariantGroup label="primary — 主要アクション">
             <Button variant="primary">Book Photographer</Button>
             <Button variant="primary" disabled>
@@ -105,7 +103,6 @@ export default function CommonComponentsPage() {
             </Button>
           </VariantGroup>
 
-          {/* Secondary */}
           <VariantGroup label="secondary — サブアクション">
             <Button variant="secondary">View Portfolio</Button>
             <Button variant="secondary" disabled>
@@ -113,7 +110,6 @@ export default function CommonComponentsPage() {
             </Button>
           </VariantGroup>
 
-          {/* Danger */}
           <VariantGroup label="danger — 削除・キャンセル系">
             <Button variant="danger">Cancel Request</Button>
             <Button variant="danger" disabled>
@@ -121,7 +117,6 @@ export default function CommonComponentsPage() {
             </Button>
           </VariantGroup>
 
-          {/* 全バリアント並べて比較 */}
           <VariantGroup label="全バリアント比較">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
@@ -133,7 +128,6 @@ export default function CommonComponentsPage() {
             2. FormInput
         ============================================================ */}
         <Section title="FormInput">
-          {/* Default */}
           <VariantGroup label="default — 初期状態">
             <div className="w-full max-w-sm">
               <FormInput
@@ -145,7 +139,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* With value */}
           <VariantGroup label="with value — 入力済み（フォーカスで枠が変化）">
             <div className="w-full max-w-sm">
               <FormInput
@@ -157,7 +150,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* Error */}
           <VariantGroup label="error — バリデーションエラー">
             <div className="w-full max-w-sm">
               <FormInput
@@ -170,7 +162,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* Interactive */}
           <VariantGroup label="interactive — 空のままボタンを押すとエラー表示">
             <div className="w-full max-w-sm">
               <FormInputDemo />
@@ -182,7 +173,6 @@ export default function CommonComponentsPage() {
             3. Textarea
         ============================================================ */}
         <Section title="Textarea">
-          {/* Default */}
           <VariantGroup label="default — 初期状態">
             <div className="w-full max-w-sm">
               <Textarea
@@ -194,7 +184,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* With value */}
           <VariantGroup label="with value — 入力済み（フォーカスで枠が変化）">
             <div className="w-full max-w-sm">
               <Textarea
@@ -205,7 +194,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* Error */}
           <VariantGroup label="error — バリデーションエラー">
             <div className="w-full max-w-sm">
               <Textarea
@@ -218,7 +206,6 @@ export default function CommonComponentsPage() {
             </div>
           </VariantGroup>
 
-          {/* Interactive */}
           <VariantGroup label="interactive — 空のままボタンを押すとエラー表示">
             <div className="w-full max-w-sm">
               <TextareaDemo />
@@ -227,10 +214,41 @@ export default function CommonComponentsPage() {
         </Section>
 
         {/* ============================================================
-            4. PhotoCard
+            4. Modal
+        ============================================================ */}
+        <Section title="Modal">
+          <VariantGroup label="size sm / md / lg（ESC・背景クリックでも閉じる）">
+            <ModalDemo
+              title="予約確認"
+              description="撮影セッションを予約します。この操作は確定後に変更できます。よろしいですか？"
+              size="sm"
+            />
+            <ModalDemo
+              title="ポートフォリオ詳細"
+              description="Yuki Tanaka のポートフォリオ「Golden Hour Session」の詳細です。東京都内での撮影実績が多数あります。撮影スタイルは自然光を活かした柔らかい表現が特徴です。"
+              size="md"
+            />
+            <ModalDemo
+              title="キャンセルポリシー"
+              description="撮影日の3日前までのキャンセルは全額返金されます。2日前から当日のキャンセルは撮影料金の50%がキャンセル料として発生します。撮影当日の無断キャンセルは全額キャンセル料が発生しますのでご注意ください。"
+              size="lg"
+            />
+          </VariantGroup>
+
+          <VariantGroup label="footer なし">
+            <ModalDemo
+              title="お知らせ"
+              description="新しいメッセージが届いています。メッセージ一覧から確認してください。"
+              size="md"
+              hasFooter={false}
+            />
+          </VariantGroup>
+        </Section>
+
+        {/* ============================================================
+            5. PhotoCard
         ============================================================ */}
         <Section title="PhotoCard">
-          {/* バッジあり / バッジなし / いいね済み */}
           <VariantGroup label="各パターン（いいねボタンはトグル可能）">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
               {SAMPLE_PHOTOS.map((photo) => (
