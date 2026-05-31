@@ -76,7 +76,7 @@
 
 各機能画面で使う共通部品を先に整備する。
 
-- [ ] [UI 🔴] 汎用 UI コンポーネント整備（Button・Input・Modal・Toast 等、`components/ui/`）
+- [x] [UI 🔴] 汎用 UI コンポーネント整備（Button・Input・Modal・Toast 等、`components/ui/`）
 - [ ] [UI 🔴] ログイン画面（`/(auth)/login`）
 - [ ] [UI 🔴] ログイン後グローバルヘッダー（ナビ・通知バッジ・アバター）
 - [ ] [UI 🔴] 利用規約ページ
