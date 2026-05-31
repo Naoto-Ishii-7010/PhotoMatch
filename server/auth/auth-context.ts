@@ -14,7 +14,14 @@ import {
 
 export type AuthenticatedUser = Pick<
   User,
-  "id" | "email" | "role" | "status" | "termsAcceptedAt" | "privacyAcceptedAt"
+  | "id"
+  | "email"
+  | "role"
+  | "status"
+  | "termsAcceptedAt"
+  | "privacyAcceptedAt"
+  | "displayName"
+  | "avatarUrl"
 >;
 
 export type AuthContext = {
@@ -29,6 +36,8 @@ const authContextUserSelect = {
   status: true,
   termsAcceptedAt: true,
   privacyAcceptedAt: true,
+  displayName: true,
+  avatarUrl: true,
 } as const;
 
 export function assertUserIsActive(user: Pick<User, "status">) {
@@ -65,6 +74,8 @@ async function getOrSyncAppUser(
     status: syncedUser.status,
     termsAcceptedAt: syncedUser.termsAcceptedAt,
     privacyAcceptedAt: syncedUser.privacyAcceptedAt,
+    displayName: syncedUser.displayName,
+    avatarUrl: syncedUser.avatarUrl,
   };
 }
 
