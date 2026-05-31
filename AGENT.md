@@ -13,7 +13,7 @@
 - スタイリング: Tailwind CSS
 - アイコン: ReactIcons
 - バリデーション: zod
-- 認証: 未実装（Supabase Auth へ移行予定）
+- 認証: Supabase Auth
 - ORM: Prisma
 - データベース: PostgreSQL
 - テスト (Unit/Integration): Vitest
@@ -33,11 +33,11 @@ photo-match/
   │   ├── globals.css                   # グローバルスタイル
   │   ├── favicon.ico
   │   │
-  │   ├── (marketing)/                  # LP・案内ページなどの公開向けルートグループ
-  │   ├── (public)/                     # 未ログインでも閲覧できるルートグループ
-  │   ├── (auth)/                       # ログイン・登録などの認証系ルートグループ
-  │   ├── (member)/                     # ログイン後ユーザー向けルートグループ
-  │   ├── (admin)/                      # 管理者向けルートグループ
+  │   ├── (marketing)/                  # LP・案内ページなどの公開向けルートグループ（予定）
+  │   ├── (public)/                     # 未ログインでも閲覧できるルートグループ（予定）
+  │   ├── (auth)/                       # ログイン・登録などの認証系ルートグループ（予定）
+  │   ├── (member)/                     # ログイン後ユーザー向けルートグループ（予定）
+  │   ├── (admin)/                      # 管理者向けルートグループ（予定）
   │   │
   │   ├── api/                          # OAuth callback / webhook / 外部向け API など、Route Handler が必要なもののみ
   │   │   └── ...
@@ -57,10 +57,11 @@ photo-match/
   │   │   ├── helpers.ts                # 純粋関数・軽量な補助関数
   │   │   ├── some-feature.service.ts   # 業務ロジック
   │   │   └── some-feature.repository.ts# DB とのやり取り
-  │   └── shared/                       # 複数featureで共有するが、業務知識を持つ部品（業務知識がなければ components/ または lib/ へ）
+  │   └── shared/                       # 業務知識を持ち、複数の feature にまたがって使う部品
+  │                                     # （業務知識がなければ components/ui/ へ、1つの feature にしか使わなければその feature 内へ）
   │
   ├── components/
-  │   ├── ui/                           # 業務知識を持たない汎用 UI
+  │   ├── ui/                           # 業務知識を持たない汎用 UI（PhotoMatch のデザイントークンを使ってよい）
   │   └── layout/                       # 複数画面で使うレイアウト部品
   │
   ├── server/                           # サーバー専用コード
@@ -71,18 +72,12 @@ photo-match/
   │   ├── repositories/                 # 共通化された永続化処理
   │   └── errors/                       # 業務エラー・HTTP エラー変換
   │
-  ├── lib/                              # 軽量な共通 util
-  │   ├── constants.ts                  # アプリ全体で使う定数
-  │   ├── utils.ts                      # 汎用ユーティリティ
-  │   ├── date.ts                       # 日付処理
-  │   └── format.ts                     # 表示整形
+  ├── lib/                              # 軽量な共通 util・外部クライアント初期化
   │
-  ├── types/                            # feature をまたぐ共通型
   ├── public/                           # 静的ファイル
   ├── docs/                             # 仕様書・設計メモ
   ├── tests/                            # 横断的なテストを置く場合のみ使用
-  ├── prisma/                           # Prisma schema / migrations / seed
-  └── proxy.ts                          # 必要な場合のみ使用するルーティング制御
+  └── prisma/                           # Prisma schema / migrations / seed
 ```
 
 ## コーディング規約

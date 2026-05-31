@@ -85,6 +85,12 @@ export default function HeroSection() {
           >
             撮りたい方はこちら →
           </button>
+          <a
+            href="/login"
+            className="inline-flex items-center justify-center gap-2.5 px-[30px] py-4 rounded-full text-[15px] font-bold text-lp-ink bg-lp-cream/90 hover:bg-lp-cream hover:-translate-y-0.5 transition-all duration-200"
+          >
+            ログイン
+          </a>
         </div>
 
         {/* 統計 */}

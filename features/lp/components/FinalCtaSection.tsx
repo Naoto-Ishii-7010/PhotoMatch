@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 /**
  * FinalCtaセクション
- * - 最終CTA（無料ではじめる）
+ * - 最終CTA（無料ではじめる / Googleでログイン）
  */
 export default function FinalCtaSection() {
   return (
@@ -20,13 +22,20 @@ export default function FinalCtaSection() {
         <p className="opacity-90 mb-9 text-base">
           登録は30秒。クレジットカード登録も不要です。
         </p>
-        <button
-          type="button"
-          disabled
-          className="inline-flex items-center justify-center px-10 py-4.5 rounded-full text-base font-bold text-lp-ink bg-lp-cream shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all duration-200"
-        >
-          無料ではじめる →
-        </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center px-10 py-4.5 rounded-full text-base font-bold text-lp-ink bg-lp-cream shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all duration-200"
+          >
+            無料ではじめる →
+          </Link>
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center px-10 py-4.5 rounded-full text-base font-bold text-white border-2 border-white/80 hover:bg-white/15 transition-all duration-200"
+          >
+            ログイン
+          </Link>
+        </div>
         <div className="text-xs mt-5 opacity-75">
           ※初回ご利用の方には¥500割引クーポンをプレゼント中
         </div>

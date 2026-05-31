@@ -1,60 +1,36 @@
-import HeroSection from "../../features/lp/components/HeroSection";
-import WhatIsSection from "../../features/lp/components/WhatIsSection";
-import StoriesSection from "../../features/lp/components/StoriesSection";
-import YouDecideSection from "../../features/lp/components/YouDecideSection";
-import UseCasesSection from "../../features/lp/components/UseCasesSection";
-import HostsSection from "../../features/lp/components/HostsSection";
-import PriceMechanismSection from "../../features/lp/components/PriceMechanismSection";
-import SafetySection from "../../features/lp/components/SafetySection";
-import DualCtaSection from "../../features/lp/components/DualCtaSection";
-import StepsSection from "../../features/lp/components/StepsSection";
-import FaqSection from "../../features/lp/components/FaqSection";
-import FinalCtaSection from "../../features/lp/components/FinalCtaSection";
+import { Suspense } from "react";
+import LoginHeroPanel from "@/features/auth/components/LoginHeroPanel";
+import LoginForm from "@/features/auth/components/LoginForm";
+import MobileLoginWrapper from "@/features/auth/components/MobileLoginWrapper";
+import MobileLoginCard from "@/features/auth/components/MobileLoginCard";
 
 /**
- * LPメインページ（/lp）
- * - アプリ本体とは独立したルートグループ
- * - 認証不要の公開ページ
- * - サービスの価値提案・ターゲット・利用フロー・機能・安全性・CTAで構成
+ * ログインページ（/login）
+ * - ログイン・新規登録で共通使用（?mode=signup で新規登録モード）
+ * - デスクトップ: 左ヒーロー写真 + 右フォームの2カラム
+ * - モバイル: グラスモーフィズムカードを中央配置
  */
-export default function LpPage() {
+export default function LoginPage() {
   return (
     <>
-      {/* Hero — メインキャッチコピーと背景画像 */}
-      <HeroSection />
+      {/* デスクトップレイアウト */}
+      <div className="hidden min-h-screen lg:flex">
+        <LoginHeroPanel />
+        <Suspense
+          fallback={
+            <div className="flex w-2/5 items-center justify-center bg-[#fff8f3]" />
+          }
+        >
+          <LoginForm />
+        </Suspense>
+      </div>
 
-      {/* WhatIs — 「撮ってほしい」と「撮りたい」をつなぐ */}
-      <WhatIsSection />
-
-      {/* Stories — 具体的な利用シナリオ */}
-      <StoriesSection />
-
-      {/* YouDecide — 価格と場所をあなたが決める */}
-      <YouDecideSection />
-
-      {/* UseCases — こんなシーンで使われています */}
-      <UseCasesSection />
-
-      {/* Hosts — 活躍中のホスト・作品例 */}
-      <HostsSection />
-
-      {/* PriceMechanism — 価格相談制の仕組み */}
-      <PriceMechanismSection />
-
-      {/* Safety — 安心・安全な仕組み */}
-      <SafetySection />
-
-      {/* DualCta — あなたは、どちらで使いますか？ */}
-      <DualCtaSection />
-
-      {/* Steps — 5ステップで完了 */}
-      <StepsSection />
-
-      {/* Faq — よくあるご質問 */}
-      <FaqSection />
-
-      {/* FinalCta — 最終CTA */}
-      <FinalCtaSection />
+      {/* モバイルレイアウト */}
+      <MobileLoginWrapper>
+        <Suspense fallback={null}>
+          <MobileLoginCard />
+        </Suspense>
+      </MobileLoginWrapper>
     </>
   );
 }

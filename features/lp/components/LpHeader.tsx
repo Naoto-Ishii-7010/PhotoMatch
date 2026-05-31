@@ -1,9 +1,8 @@
 import Link from "next/link";
-import GoogleSignInButton from "../../shared/components/GoogleSignInButton";
 
 /**
  * LPヘッダー
- * - ロゴ（テキスト）と新規登録・ログインCTAボタンを配置
+ * - ロゴ（テキスト）・「Googleでログイン」・「無料ではじめる」CTAボタンを配置
  * - スクロール後も常に上部固定（sticky）
  */
 export default function LpHeader() {
@@ -49,18 +48,18 @@ export default function LpHeader() {
 
         {/* CTA */}
         <div className="flex items-center gap-2.5">
-          <div className="hidden sm:block">
-            <GoogleSignInButton variant="lpHeader">
-              Googleでログイン
-            </GoogleSignInButton>
-          </div>
-          <button
-            type="button"
-            disabled
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-[13px] font-bold text-lp-ink border-[1.5px] border-lp-ink hover:bg-lp-ink hover:text-white transition-all duration-200"
+          >
+            ログイン
+          </Link>
+          <Link
+            href="/"
             className="inline-flex items-center justify-center px-[30px] py-2.5 rounded-full text-[15px] font-bold text-white bg-lp-accent shadow-[0_8px_20px_rgba(216,92,58,0.35)] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(216,92,58,0.45)] transition-all duration-200"
           >
             無料ではじめる
-          </button>
+          </Link>
         </div>
       </div>
     </header>

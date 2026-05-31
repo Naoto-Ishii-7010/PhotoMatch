@@ -7,7 +7,8 @@ import { createClient } from "@/lib/supabase/client";
 type GoogleSignInButtonProps = {
   children?: ReactNode;
   className?: string;
-  variant?: "default" | "lpHeader";
+  variant?: "default" | "lpHeader" | "login";
+  redirectAfterSignIn?: string;
 };
 
 const baseClassName =
@@ -23,19 +24,27 @@ const variantClassNames = {
     button:
       "w-auto rounded-full border-[1.5px] border-lp-ink bg-transparent px-5 py-2.5 text-[13px] font-bold text-lp-ink shadow-none hover:translate-y-0 hover:bg-lp-ink hover:text-white hover:shadow-none focus-visible:ring-lp-ink/40",
   },
+  login: {
+    container: "w-full",
+    button:
+      "rounded-full border border-[#d2c4b6] bg-[#fff8f3] px-[17px] py-[13px] text-[20px] font-medium text-[#211b11] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] hover:translate-y-0 hover:bg-white hover:shadow-[0px_2px_4px_rgba(0,0,0,0.08)] focus-visible:ring-lp-brand/40",
+  },
 } as const;
 
 export default function GoogleSignInButton({
   children = "Googleでサインイン",
   className = "",
   variant = "default",
+  redirectAfterSignIn,
 }: GoogleSignInButtonProps) {
   const variantClassName = variantClassNames[variant];
 
   const handleSignIn = async () => {
     try {
       const supabase = createClient();
-      const next = `${window.location.pathname}${window.location.search}`;
+      const next =
+        redirectAfterSignIn ??
+        `${window.location.pathname}${window.location.search}`;
       const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
