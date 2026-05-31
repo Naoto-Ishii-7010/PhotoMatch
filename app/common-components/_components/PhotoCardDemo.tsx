@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PhotoCard from "@/components/ui/PhotoCard";
+import PhotoCard from "@/features/shared/components/PhotoCard";
 
 type PhotoCardDemoProps = {
   imageUrl: string;
