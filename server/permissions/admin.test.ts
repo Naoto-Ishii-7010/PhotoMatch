@@ -23,6 +23,8 @@ const adminAuthContext = {
     status: UserStatus.ACTIVE,
     termsAcceptedAt: null,
     privacyAcceptedAt: null,
+    displayName: null,
+    avatarUrl: null,
   },
 };
 
